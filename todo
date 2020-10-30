@@ -1,0 +1,13 @@
+-Turn pos_out into a vector, so it can be removed from the global variable
+
+-group all the .dat files into a single folder
+-do the same for ROOT macros
+
+-general relativity
+-rigidity
+
+-PhysInit better implementation / not hard coded -> arrays
+
+-comment the program
+
+-on config fix boolean value (SimStop_flag) 0/1~ -> false/true (use true / false options)
