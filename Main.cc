@@ -1,6 +1,5 @@
 #include "Main.h" 
 
-
 int main(){
 
     cout << "***COSMIC RAYS***\n\n";
@@ -40,6 +39,8 @@ int main(){
         max_values[i] = pos[i];
         min_values[i] = pos[i];
     }
+
+    m = RelativisticMass(m,v0);
 
     for(int i = 0; i < N; i++){
 

@@ -3,6 +3,8 @@
 
 using namespace std;
 
+#define c_light 299792458
+
 double PhysInit(int &N, double &t, double &q, double &m, double pos[3], double v[3], double B[3], double &initialB, int &mode, bool &SimStop_flag){
 
     //ugly implementation**************************
@@ -193,4 +195,12 @@ bool SimStop(double B[]){
     }else{
         return false;
     }
+}
+
+double RelativisticMass(double m, double v[]){
+
+    double v_mod = sqrt( pow(v[0],2) + pow(v[1],2) + pow(v[2],2));
+    double gamma = 1 / (sqrt(1 - pow(v_mod,2) / pow(c_light,2)));
+
+    return m*gamma;
 }

@@ -6,7 +6,10 @@ using namespace std;
 
 void print_pos(int N, double t,  double max_values[], double min_values[], double pos_out[][3]){
     ofstream pos("pos.dat");
-
+    //N
+    //Max x Max y Max z Min x Min y Min z
+    //time x y z 
+    
     pos << N << endl;
     
     for(int i=0; i<3; i++){
