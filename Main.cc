@@ -41,6 +41,7 @@ int main(){
     }
 
     m = RelativisticMass(m,v0);
+    cout << "mass = " <<  m << endl;
 
     for(int i = 0; i < N; i++){
 

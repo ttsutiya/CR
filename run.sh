@@ -7,5 +7,5 @@ then
 fi
 
     ./CR
-    root PlotPosition.cc PlotMagField.cc PlotFrequency.cc PlotRadius.cc
+    root PlotPosition.cc #PlotMagField.cc PlotFrequency.cc PlotRadius.cc
 #    root  PlotX.cc PlotY.cc PlotZ.cc

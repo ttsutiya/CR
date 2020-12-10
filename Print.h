@@ -13,17 +13,17 @@ void print_pos(int N, double t,  double max_values[], double min_values[], doubl
     pos << N << endl;
     
     for(int i=0; i<3; i++){
-        pos << max_values[i] << " ";
+        pos << scientific << setprecision(10) << max_values[i] << " ";
     }
 
     for(int i=0; i<3; i++){
-        pos << min_values[i] << " ";
+        pos << scientific << setprecision(10) << min_values[i] << " ";
     }
 
     pos << endl;
 
     for(int i=0; i<N; i++){
-        pos << scientific << setprecision(5) << i*t <<" ";
+        pos << scientific << setprecision(10) << i*t <<" ";
 
         for(int j=0; j<3; j++){
             pos << pos_out[i][j] << " ";
@@ -44,8 +44,8 @@ void print_rad(int N, double t, double radius[]){
     for(int i = 0; i < N; i++){ 
         time = t*i;
 
-        rad << fixed << setprecision(3) << time << " "
-            << scientific << setprecision(5) << radius[i] << endl;
+        rad << fixed << setprecision(10) << time << " "
+            << scientific << setprecision(10) << radius[i] << endl;
     }
 
     rad.close();
@@ -63,8 +63,8 @@ void print_mag(int N, double t, double magfield[][3]){
         time = t*i;
         B_mod= sqrt(pow(magfield[i][0],2) + pow(magfield[i][1],2) + pow(magfield[i][2],2));
 
-        mag << fixed << setprecision(3) << time << " "
-            << scientific << setprecision(5) << B_mod << endl;
+        mag << fixed << setprecision(10) << time << " "
+            << scientific << setprecision(10) << B_mod << endl;
         
     }
     
@@ -81,8 +81,8 @@ void print_freq(int N, double t, double frequency[]){
     for(int i = 0; i < N; i++){ 
         time = t*i;
 
-        freq << fixed << setprecision(3) << time << " "
-             << scientific << setprecision(5) << frequency[i] << endl;
+        freq << fixed << setprecision(10) << time << " "
+             << scientific << setprecision(10) << frequency[i] << endl;
     }
 
     freq.close();

@@ -4,7 +4,6 @@ void PlotMagField(){
 
     TCanvas *c2 = new TCanvas("c2", "MagField");
 
-    //c1 -> SetFillColor();
     c2 -> SetGrid();
 
     Int_t nlines = 0;

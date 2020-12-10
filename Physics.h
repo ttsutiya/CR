@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -200,6 +201,7 @@ bool SimStop(double B[]){
 double RelativisticMass(double m, double v[]){
 
     double v_mod = sqrt( pow(v[0],2) + pow(v[1],2) + pow(v[2],2));
+    cout << "% v_mod / c= " << 100*(v_mod/c_light) << endl;
     double gamma = 1 / (sqrt(1 - pow(v_mod,2) / pow(c_light,2)));
 
     return m*gamma;
