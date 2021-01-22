@@ -1,4 +1,5 @@
 #include "Main.h" 
+#include "Local.h"
 
 int main(){
 
@@ -15,6 +16,9 @@ int main(){
     int mode;
 
     PhysInit(N,t,q,m,pos,v0,B,initialB,mode,SimStop_flag);
+    cout << "N = " << N << endl;
+    cout << "t = " << t << endl;
+    cout << "flag = " << SimStop_flag << endl;
 
     double pos_out[N][3];
     double radius[N];

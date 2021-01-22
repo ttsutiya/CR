@@ -1,6 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <iomanip>
+#include "Main.h"
 
 using namespace std;
 

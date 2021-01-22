@@ -1,60 +1,93 @@
-#include <iostream>
-#include <fstream>
-#include <iomanip>
+#include "Main.h"
 
 using namespace std;
 
 #define c_light 299792458
 
-double PhysInit(int &N, double &t, double &q, double &m, double pos[3], double v[3], double B[3], double &initialB, int &mode, bool &SimStop_flag){
+double PhysInit(int &N, double &t, double &q, double &m, double pos[3], double v[3], double B[3], double &initialB, int &mode, bool &stopFlag){
 
-    //ugly implementation**************************
-    
     ifstream config("config");
 
-    if(config.is_open()){
+    if(!config.is_open()){
+        cerr << "Couldn't open config file." << endl;
 
-        string str;
-        double arr[16];
+        exit;
+    }else{
 
-        while(getline(config, str, '=')){
-            int i;
+        string line;
 
-            config >> arr[i];
+        int lineNumber=0;
 
-            if(!config){
-                break;
+        while(getline(config, line)){
+            line.erase(remove_if(line.begin(), line.end(), ::isspace),
+                                                        line.end());
+           
+            if(line[0] == '#' || line.empty())
+                continue;
+
+            int delimiterPos = line.find("=");
+            string name = line.substr(0, delimiterPos);
+            string str = line.substr(delimiterPos + 1);
+
+            stringstream ss(str);
+
+            double n;
+            switch(lineNumber){
+                case 0:
+                    ss >> n;
+                    cout << "case n = " << n << endl;
+                    N = (int)n;
+                    cout << "case N = " << N << endl;
+                    break;
+                case 1:
+                    ss >> t;
+                    break;
+                case 2:
+                    ss >> q;
+                    break;
+                case 3:
+                    ss >> m;
+                    break;
+                case 4:
+                    ss >> pos[0];
+                    break;
+                case 5:
+                    ss >> pos[1];
+                    break;
+                case 6:
+                    ss >> pos[2];
+                    break;
+                case 7:
+                    ss >> v[0];
+                    break;
+                case 8:
+                    ss >> v[1];
+                    break;
+                case 9:
+                    ss >> v[2];
+                    break;
+                case 10:
+                    ss >> B[0];
+                    break;
+                case 11:
+                    ss >> B[1];
+                    break;
+                case 12:
+                    ss >> B[2];
+                    break;
+                case 13:
+                    ss >> initialB;
+                    break;
+                case 14:
+                    ss >> mode;
+                    break;
+                case 15:
+                    ss >> stopFlag;
+                    break;
             }
-
-            i++;
+            lineNumber++;
         }
 
-        N=arr[0];
-        t=arr[1];
-
-        q=arr[2];
-        m=arr[3];
-
-        pos[0]=arr[4];
-        pos[1]=arr[5];
-        pos[2]=arr[6];
-
-        v[0]=arr[7];
-        v[1]=arr[8];
-        v[2]=arr[9];
-
-        B[0]=arr[10];
-        B[1]=arr[11];
-        B[2]=arr[12];
-
-        initialB=arr[13];
-        mode=arr[14];
-        SimStop_flag=arr[15];
-
-
-    }else{
-        cerr << "Couldn't open config.dat file." << endl;
-        exit(1);
     }
 
     config.close();
