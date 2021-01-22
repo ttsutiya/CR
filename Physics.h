@@ -26,7 +26,6 @@ double PhysInit(int &N, double &t, double &q, double &m, double pos[3], double v
                 continue;
 
             int delimiterPos = line.find("=");
-            string name = line.substr(0, delimiterPos);
             string str = line.substr(delimiterPos + 1);
 
             stringstream ss(str);
@@ -35,9 +34,7 @@ double PhysInit(int &N, double &t, double &q, double &m, double pos[3], double v
             switch(lineNumber){
                 case 0:
                     ss >> n;
-                    cout << "case n = " << n << endl;
-                    N = (int)n;
-                    cout << "case N = " << N << endl;
+                    N = n;
                     break;
                 case 1:
                     ss >> t;
