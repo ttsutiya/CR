@@ -7,7 +7,7 @@ int main(){
 
     int N;
     double t;
-    bool SimStop_flag;
+    bool stopFlag;
 
     double max_values[3], min_values[3];
     double q, m, pos[3], v0[3], B[3], initialB;
@@ -15,10 +15,7 @@ int main(){
     double F[3], v[3], a[3];
     int mode;
 
-    PhysInit(N,t,q,m,pos,v0,B,initialB,mode,SimStop_flag);
-    cout << "N = " << N << endl;
-    cout << "t = " << t << endl;
-    cout << "flag = " << SimStop_flag << endl;
+    PhysInit(N,t,q,m,pos,v0,B,initialB,mode,stopFlag);
 
     double pos_out[N][3];
     double radius[N];
@@ -78,7 +75,7 @@ int main(){
             v0[i] = v[i];
         }
 
-        if(SimStop_flag){
+        if(stopFlag){
             if(SimStop(B)){
                 cout << "SimStop Trigered" <<endl;
                 N = i;
