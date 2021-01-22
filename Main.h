@@ -1,7 +1,7 @@
-#include <math.h>
-#include <iostream>
-#include <fstream>
-
-#include "Mathematics.h"
-#include "Physics.h"
-#include "Print.h"
+#include<cmath>
+#include<iostream>
+#include<fstream>
+#include<iomanip>
+#include<string>
+#include<sstream>
+#include<algorithm>

@@ -19,4 +19,4 @@ magfield(z) = 0
 initialB = 1e13
 
 mode = 3
-SimStop = 1
+stopFlag = 1
