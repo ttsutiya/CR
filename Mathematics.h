@@ -5,14 +5,14 @@ using namespace std;
 #define pi 3.141592654
 #define rad2deg (180./pi)
 
-double Max(double a, double b){
-double Min(double a, double b){
-double VecMod(double Vec[]){
-double CrossProduct(double c[3], double a[3], double b[3]){
-double DotProduct(double a[3], double b[3]){
-double Decomposition(double v[3], double B[3], double v_par[3], double v_per[3]){
-double RelDistance(double pos[3], double SV_pos[3]){    //relative distance
-double AbsDistance(double pos[3]){      //absolute distance
+double Max(double a, double b);
+double Min(double a, double b);
+double VecMod(double Vec[]);
+double CrossProduct(double c[3], double a[3], double b[3]);
+double DotProduct(double a[3], double b[3]);
+double Decomposition(double v[3], double B[3], double v_par[3], double v_per[3]);
+double RelDistance(double pos[3], double SV_pos[3]);
+double AbsDistance(double pos[3]);
 
 double Max(double a, double b){
     double max;
