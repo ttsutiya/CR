@@ -4,6 +4,18 @@ using namespace std;
 
 #define c_light 299792458
 
+double PhysInit(int &N, double &t, double &q, double &m, double pos[3], double v[3], double B[3], double &initialB, int &mode, bool &stopFlag);
+double Lorentz(double F[3], double q, double v[3], double B[3]);
+double Acceleration(double a[3], double F[3], double m);
+double Velocity(double t,double v[3], double v0[3], double a[3]);
+double VelocityCorrection(double v[3], double v0[3], double B[3]);
+double Trajectory(double t,double pos[3], double v[3], double a[3]);
+double Gyroradius(double q, double m, double v[3], double B[3]);
+double MagneticField(double pos[3], double SV_pos[3], double B[3], double SV_B[3], double initialB, int mode);
+double Frequency(double q, double m, double v[3], double B[3]);
+bool SimStop(double B[]);
+double RelativisticMass(double m, double v[]);
+
 double PhysInit(int &N, double &t, double &q, double &m, double pos[3], double v[3], double B[3], double &initialB, int &mode, bool &stopFlag){
 
     ifstream config("config");
@@ -231,7 +243,7 @@ bool SimStop(double B[]){
 double RelativisticMass(double m, double v[]){
 
     double v_mod = sqrt( pow(v[0],2) + pow(v[1],2) + pow(v[2],2));
-    cout << "% v_mod / c= " << 100*(v_mod/c_light) << endl;
+    cout << "% (v_mod / c) = " << 100*(v_mod/c_light) << endl;
     double gamma = 1 / (sqrt(1 - pow(v_mod,2) / pow(c_light,2)));
 
     return m*gamma;
