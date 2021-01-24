@@ -1,18 +1,18 @@
 #include "Main.h"
 
-using namespace std;
-
 #define pi 3.141592654
 #define rad2deg (180./pi)
 
 double Max(double a, double b);
 double Min(double a, double b);
-double VecMod(double Vec[]);
-double CrossProduct(double c[3], double a[3], double b[3]);
-double DotProduct(double a[3], double b[3]);
-double Decomposition(double v[3], double B[3], double v_par[3], double v_per[3]);
-double RelDistance(double pos[3], double SV_pos[3]);
-double AbsDistance(double pos[3]);
+double VecMod(const std::vector<double> &vec);
+double CrossProduct(std::vector<double> &c, const std::vector<double> &a,
+        const std::vector<double> &b);
+double DotProduct(const std::vector<double> a, const std::vector<double> b);
+double Decomposition(const std::vector<double> &v, const std::vector<double> &B,
+        std::vector<double> &v_par, std::vector<double> &v_per);
+double RelDistance(const std::vector<double> &pos, const std::vector<double> &pos0);
+double AbsDistance(const std::vector<double> &pos);
 
 double Max(double a, double b){
     double max;
@@ -38,15 +38,16 @@ double Min(double a, double b){
     return min;
 }
 
-double VecMod(double Vec[]){
+double VecMod(const std::vector<double> &vec){
         double mod;
 
-        mod = sqrt(pow(Vec[0],2) + pow(Vec[1],2) + pow(Vec[2],2));
+        mod = sqrt(pow(vec[0],2) + pow(vec[1],2) + pow(vec[2],2));
 
         return mod;
 }
 
-double CrossProduct(double c[3], double a[3], double b[3]){
+double CrossProduct(std::vector<double> &c, const std::vector<double> &a,
+        const std::vector<double> &b){
 
     c[0] = a[1]*b[2]-a[2]*b[1];
     c[1] = a[2]*b[0]-a[0]*b[2];
@@ -55,14 +56,14 @@ double CrossProduct(double c[3], double a[3], double b[3]){
     return 0;
 }
 
-double DotProduct(double a[3], double b[3]){
+double DotProduct(const std::vector<double> a, const std::vector<double> b){
 
     double c = a[0]*b[0] + a[1]*b[1] + a[2]*b[2]; 
 
     return c;
 }
 
-double Decomposition(double v[3], double B[3], double v_par[3], double v_per[3]){
+double Decomposition(const std::vector<double> &v, const std::vector<double> &B, std::vector<double> &v_par, std::vector<double> &v_per){
 
     double B_mod;
     
@@ -81,13 +82,12 @@ double Decomposition(double v[3], double B[3], double v_par[3], double v_per[3])
     return 0;
 }
 
-double RelDistance(double pos[3], double SV_pos[3]){    //relative distance
-        
-    double RDist;
-    double temp[3];
+double RelDistance(const std::vector<double> &pos, const std::vector<double> &pos0){
+    double RDist;                            //relative distance
+    std::vector<double> temp(3);
 
     for(int i = 0; i<3; i++){
-        temp[i] = pos[i]-SV_pos[i];
+        temp[i] = pos[i]-pos0[i];
     }
     
     RDist = VecMod(temp);
@@ -95,11 +95,10 @@ double RelDistance(double pos[3], double SV_pos[3]){    //relative distance
     return RDist;
 }
 
-double AbsDistance(double pos[3]){      //absolute distance
-    
-    double ADist;
+double AbsDistance(const std::vector<double> &pos){   //absolute distance
+    double absDist;
 
-    ADist = VecMod(pos);
+    absDist = VecMod(pos);
 
-    return ADist;
+    return absDist;
 }

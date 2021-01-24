@@ -1,70 +1,65 @@
 #include "Main.h" 
 #include "Local.h"
 
+using std::cout;
+using std::endl;
+
 int main(){
 
-    cout << "***COSMIC RAYS***\n\n";
+    std::cout << "***COSMIC RAYS***\n\n";
 
     int N;
     double t;
     bool stopFlag;
 
-    double max_values[3], min_values[3];
-    double q, m, pos[3], v[3], B[3], initialB;
-    double SV_pos[3], SV_v[3], SV_B[3];
+    double q, m, initialB;
     int mode;
 
+    std::vector<double> pos(3), v(3), B(3);
+
     PhysInit(N,t,q,m,pos,v,B,initialB,mode,stopFlag);
+    cout << pos[0] << " " << pos[1] << " " << pos[2] <<endl;
 
-    double pos_out[N][3];
-    double radius[N];
-    double magfield[N][3];
-    double frequency[N];
-
-
-//----------------------------------------------------------------------------------------------------
-//  Core 
-  
+    std::vector<std::vector<double>> posOut(N, std::vector<double>(3));
     for(int i = 0; i < 3; i++){
-        pos_out[0][i] = pos[i];
+        posOut[0][i] = pos[i];
     }
 
+    std::vector<double> pos0(3), v0(3), B0(3);
     for(int i = 0; i < 3; i++){     // Saves the starting values for future use
-        SV_pos[i] = pos[i];
-        SV_v[i] = v[i];
-        SV_B[i] = B[i];
+        pos0.push_back(pos[i]);
+        v0.push_back(v[i]);
+        B0.push_back(B[i]);
     }
 
-    for(int i = 0; i < 3; i++){     //  Match the values of max and min with the startin values
-        max_values[i] = pos[i];
-        min_values[i] = pos[i];
+    std::vector<double> maxValues(3), minValues(3);
+    for(int i = 0; i < 3; i++){         //Match the values of max and min with 
+        maxValues.push_back(pos[i]);    //the starting values
+        minValues.push_back(pos[i]);
     }
 
     m = RelativisticMass(m,v);
-    cout << "mass = " <<  m << endl;
+    std::cout << "mass = " <<  m << std::endl;
 
-////            cout << " test = " << v[0] <<" ";
-    for(int i = 0; i < N; i++){
-//        if(i < 10){
-//            cout << " testinside = " << v[0] <<" ";
-//        }
-
-//RK4
-//###########
-
-        double F[3];
-        double x1[3],x2[3],x3[3], x4[3];
-        double v1[3],v2[3],v3[3], v4[3];
-        double a1[3],a2[3],a3[3], a4[3];
+    std::vector<double> radius(N);
+    std::vector<std::vector<double>> magfield(N,std::vector<double>(3));
+    std::vector<double> frequency(N);
+    
+    for(int i = 0; i < N; i++){         //Main body of the program
+                                        //RK4
+        std::vector<double> F(3);
+        std::vector<double> x1(3),x2(3),x3(3), x4(3);
+        std::vector<double> v1(3),v2(3),v3(3), v4(3);
+        std::vector<double> a1(3),a2(3),a3(3), a4(3);
 
         for(int i=0; i<3; i++){
             x1[i] = pos[i];
             v1[i] = v[i];
-//            cout << v[i] <<" ";
+            cout << pos[i] << " ";
         }
- //       cout << endl;
+        cout << endl;
 
-        MagneticField(x1,SV_pos,B,SV_B,initialB,mode);
+        MagneticField(x1,pos0,B,B0,initialB,mode);
         Lorentz(F,q,v1,B);
 
         for(int i=0; i<3; i++){
@@ -76,7 +71,7 @@ int main(){
             v2[i] = v[i] + 0.5 * a1[i] * t;
         }
 
-        MagneticField(x2,SV_pos,B,SV_B,initialB,mode);
+        MagneticField(x2,pos0,B,B0,initialB,mode);
         Lorentz(F,q,v2,B);
         
         for(int i=0; i<3; i++){
@@ -88,7 +83,7 @@ int main(){
             v3[i] = v[i] + 0.5 * a2[i] * t;
         }
 
-        MagneticField(x3,SV_pos,B,SV_B,initialB,mode);
+        MagneticField(x3,pos0,B,B0,initialB,mode);
         Lorentz(F,q,v3,B);
         
         for(int i=0; i<3; i++){
@@ -100,7 +95,7 @@ int main(){
             v4[i] = v[i] + a3[i] * t;
         }
 
-        MagneticField(x4,SV_pos,B,SV_B,initialB,mode);
+        MagneticField(x4,pos0,B,B0,initialB,mode);
         Lorentz(F,q,v4,B);
         
         for(int i=0; i<3; i++){
@@ -127,23 +122,23 @@ int main(){
 
         for(int j = 0; j < 3; j++){
             if(pos[j] != pos[j]){       //comparing two nan value is false
-                cout << "Nan value" << endl;
-                cout << "i = " << i << endl;
+                std::cout << "Nan value" << std::endl;
+                std::cout << "i = " << i << std::endl;
                 return 1;
             }
-            pos_out[i][j] = pos[j];
+            posOut[i][j] = pos[j];
         }
 
         for(int i = 0; i < 3; i++){
-            max_values[i] = Max(max_values[i],pos[i]);
-            min_values[i] = Min(min_values[i],pos[i]);
+            maxValues[i] = Max(maxValues[i],pos[i]);
+            minValues[i] = Min(minValues[i],pos[i]);
         }
 
         if(stopFlag){
             if(SimStop(B)){
-                cout << "SimStop Trigered" <<endl;
+                std::cout << "SimStop Trigered" << std::endl;
                 N = i;
-                cout << " N = " << i << endl;
+                std::cout << " N = " << i << std::endl;
                 break;
             }
         }
@@ -151,10 +146,10 @@ int main(){
 
 //Print values to .dat files
 
-    print_pos(N, t, max_values, min_values, pos_out);
-    print_rad(N, t, radius);
-    print_mag(N, t, magfield);
-    print_freq(N, t, frequency);
+    printPos(N, t, maxValues, minValues, posOut);
+    printRad(N, t, radius);
+    printMag(N, t, magfield);
+    printFreq(N, t, frequency);
 
     return 0;
 }

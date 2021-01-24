@@ -1,86 +1,88 @@
 #include "Main.h"
 
-using namespace std;
-
-void print_pos(int N, double t,  double max_values[], double min_values[], double pos_out[][3]){
-    ofstream pos("pos.dat");
+void printPos(const int &N, const double &t,  const std::vector<double> &maxValues,
+        const std::vector<double> &minValues, 
+        const std::vector<std::vector<double>> &posOut){
+    std::ofstream pos("pos.dat");
     //N
     //Max x Max y Max z Min x Min y Min z
     //time x y z 
     
-    pos << N << endl;
+    pos << N << std::endl;
     
     for(int i=0; i<3; i++){
-        pos << scientific << setprecision(10) << max_values[i] << " ";
+        pos << std::scientific << std::setprecision(10) << maxValues[i] << " ";
     }
 
     for(int i=0; i<3; i++){
-        pos << scientific << setprecision(10) << min_values[i] << " ";
+        pos << std::scientific << std::setprecision(10) << minValues[i] << " ";
     }
 
-    pos << endl;
+    pos << std::endl;
 
     for(int i=0; i<N; i++){
-        pos << scientific << setprecision(10) << i*t <<" ";
+        pos << std::scientific << std::setprecision(10) << i*t <<" ";
 
         for(int j=0; j<3; j++){
-            pos << pos_out[i][j] << " ";
+            pos << posOut[i][j] << " ";
         }
-        pos << endl;
+        pos << std::endl;
     }
 
     pos.close();
 }
 
-void print_rad(int N, double t, double radius[]){
-    ofstream rad("rad.dat");
+void printRad(const int &N, const double &t, const std::vector<double> radius){
+    std::ofstream rad("rad.dat");
     
     double time;
 
-    rad << N << endl;
+    rad << N << std::endl;
 
     for(int i = 0; i < N; i++){ 
         time = t*i;
 
-        rad << fixed << setprecision(10) << time << " "
-            << scientific << setprecision(10) << radius[i] << endl;
+        rad << std::fixed << std::setprecision(10) << time << " "
+            << std::scientific << std::setprecision(10) << radius[i] << std::endl;
     }
 
     rad.close();
 }
 
-void print_mag(int N, double t, double magfield[][3]){
-    ofstream mag("magfield.dat");
+void printMag(const int &N, const double &t,
+        const std::vector<std::vector<double>> &magfield){
+    std::ofstream mag("magfield.dat");
 
     double B_mod;
     double time;
 
-    mag << N << endl;
+    mag << N << std::endl;
 
     for(int i=0; i<N; i++){
         time = t*i;
         B_mod= sqrt(pow(magfield[i][0],2) + pow(magfield[i][1],2) + pow(magfield[i][2],2));
 
-        mag << fixed << setprecision(10) << time << " "
-            << scientific << setprecision(10) << B_mod << endl;
+        mag << std::fixed << std::setprecision(10) << time << " "
+            << std::scientific << std::setprecision(10) << B_mod << std::endl;
         
     }
     
     mag.close();
 }
 
-void print_freq(int N, double t, double frequency[]){
-    ofstream freq("frequency.dat");
+void printFreq(const int &N, const double &t,
+        const std::vector<double> &frequency){
+    std::ofstream freq("frequency.dat");
 
     double time;
 
-    freq << N << endl;
+    freq << N << std::endl;
 
     for(int i = 0; i < N; i++){ 
         time = t*i;
 
-        freq << fixed << setprecision(10) << time << " "
-             << scientific << setprecision(10) << frequency[i] << endl;
+        freq << std::fixed << std::setprecision(10) << time << " "
+             << std::scientific << std::setprecision(10) << frequency[i] << std::endl;
     }
 
     freq.close();
