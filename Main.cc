@@ -19,7 +19,7 @@ int main(){
 
     PhysInit(N,t,q,m,pos,v,B,initialB,mode,stopFlag);
 
-    std::vector<std::vector<double>> posOut(N, std::vector<double>(3));
+    std::vector<std::vector<double>> posOut(1, std::vector<double>(3));
     for(int i = 0; i < 3; i++){
         posOut[0][i] = pos[i];
     }
@@ -117,14 +117,18 @@ int main(){
             magfield[i][j] = B[j];
         }
 
+        std::vector<double> temp(3);
+
         for(int j = 0; j < 3; j++){
             if(pos[j] != pos[j]){       //comparing two nan value is false
                 std::cout << "Nan value" << std::endl;
                 std::cout << "i = " << i << std::endl;
                 return 1;
             }
-            posOut[i][j] = pos[j];
+            
+            temp[j] = pos[j];
         }
+        posOut.push_back(temp);
 
         for(int i = 0; i < 3; i++){
             maxValues[i] = Max(maxValues[i],pos[i]);
