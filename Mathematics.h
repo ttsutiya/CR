@@ -11,7 +11,6 @@ double CrossProduct(std::vector<double> &c, const std::vector<double> &a,
 double DotProduct(const std::vector<double> a, const std::vector<double> b);
 double Decomposition(const std::vector<double> &v, const std::vector<double> &B,
         std::vector<double> &v_par, std::vector<double> &v_per);
-double RelDistance(const std::vector<double> &pos, const std::vector<double> &pos0);
 double AbsDistance(const std::vector<double> &pos);
 
 double Max(double a, double b){
@@ -80,19 +79,6 @@ double Decomposition(const std::vector<double> &v, const std::vector<double> &B,
     v_per[2] = v[2] - v_par[2];
 
     return 0;
-}
-
-double RelDistance(const std::vector<double> &pos, const std::vector<double> &pos0){
-    double RDist;                            //relative distance
-    std::vector<double> temp(3);
-
-    for(int i = 0; i<3; i++){
-        temp[i] = pos[i]-pos0[i];
-    }
-    
-    RDist = VecMod(temp);
-
-    return RDist;
 }
 
 double AbsDistance(const std::vector<double> &pos){   //absolute distance

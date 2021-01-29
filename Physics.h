@@ -9,9 +9,8 @@ double Lorentz(std::vector<double> &F, const double &q, const std::vector<double
         const std::vector<double> &B);
 double Gyroradius(const double &q, const double &m, const std::vector<double> &v,
         const std::vector<double> &B);
-double MagneticField(const std::vector<double> &pos, const std::vector<double> &pos0,
-        std::vector<double> &B, const std::vector<double> &B0, const double &initialB,
-        const int &mode);
+double MagneticField(const std::vector<double> &pos, std::vector<double> &B,
+        const std::vector<double> &B0, const double &initialB, const int &mode);
 double Frequency(const double &q, const double &m, const std::vector<double> v,
        const std::vector<double> B);
 bool SimStop(const std::vector<double> B);
@@ -138,7 +137,8 @@ double Gyroradius(const double &q, const double &m, const std::vector<double> &v
     return r;
 }
 
-double MagneticField(const std::vector<double> &pos, const std::vector<double> &pos0, std::vector<double> &B, const std::vector<double> &B0, const double &initialB, const int &mode){
+double MagneticField(const std::vector<double> &pos, std::vector<double> &B,
+        const std::vector<double> &B0, const double &initialB, const int &mode){
     
     double r = AbsDistance(pos);
    
