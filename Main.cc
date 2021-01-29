@@ -26,15 +26,15 @@ int main(){
 
     std::vector<double> pos0(3), v0(3), B0(3);
     for(int i = 0; i < 3; i++){     // Saves the starting values for future use
-        pos0.push_back(pos[i]);
-        v0.push_back(v[i]);
-        B0.push_back(B[i]);
+        pos0[i] = pos[i];
+        v0[i] = v[i];
+        B0[i] = B[i];
     }
 
     std::vector<double> maxValues(3), minValues(3);
     for(int i = 0; i < 3; i++){         //Match the values of max and min with 
-        maxValues.push_back(pos[i]);    //the starting values
-        minValues.push_back(pos[i]);
+        maxValues[i] = pos[i];          //the starting values
+        minValues[i] = pos[i];
     }
 
     m = RelativisticMass(m,v);
