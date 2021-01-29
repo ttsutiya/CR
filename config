@@ -1,22 +1,32 @@
-N = 1e5
-t = 1e-3
+#Duration
+finalTime = 0.1
+
+#Step size
+h = 1e-3
 
 charge = 1.6e-19
 mass = 1.67e-27
 
-pos(x) = 1e5
-pos(y) = 1e5
-pos(z) = 1e4
+pos(x) = 0
+pos(y) = 0
+pos(z) = 1e6
 
-velocity(x) = 1e5
-velocity(y) = 1e4
-velocity(z) = 1e5
+velocity(x) = 1e7
+velocity(y) = 1e7
+velocity(z) = 1e4
 
-magfield(x) = 0
+magfield(x) = 1e7
 magfield(y) = 0
 magfield(z) = 0
 
-initialB = 7e8
+#B_0 used in the dipole field
+initialB = 1e13
 
+#   0 - constant
+#   1 - 1/r
+#   2 - 1/r^2
+#   3 - dipole
 mode = 3
-SimStop = 1
+
+#Stop Simulation if mag field gets too weak
+stopFlag = 1

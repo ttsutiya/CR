@@ -8,8 +8,7 @@ int main(){
 
     std::cout << "***COSMIC RAYS***\n\n";
 
-    int N;
-    double t;
+    double finalTime, h;
     bool stopFlag;
 
     double q, m, initialB;
@@ -17,7 +16,7 @@ int main(){
 
     std::vector<double> pos(3), v(3), B(3);
 
-    PhysInit(N,t,q,m,pos,v,B,initialB,mode,stopFlag);
+    PhysInit(finalTime,h,q,m,pos,v,B,initialB,mode,stopFlag);
 
     std::vector<std::vector<double>> posOut(1, std::vector<double>(3));
     for(int i = 0; i < 3; i++){
@@ -40,11 +39,11 @@ int main(){
     m = RelativisticMass(m,v);
     std::cout << "mass = " <<  m << std::endl;
 
-    std::vector<double> radius(N);
-    std::vector<std::vector<double>> magfield(N,std::vector<double>(3));
-    std::vector<double> frequency(N);
+    std::vector<double> radius;
+    std::vector<std::vector<double>> magfield;
+    std::vector<double> frequency;
     
-    for(int i = 0; i < N; i++){         //Main body of the program
+    for(double time = 0; time < finalTime;){         //Main body of the program
                                         //RK4
         std::vector<double> F(3);
         std::vector<double> x1(3),x2(3),x3(3), x4(3);
@@ -64,8 +63,8 @@ int main(){
         }
 
         for(int i=0; i<3; i++){
-            x2[i] = pos[i] + 0.5 * v1[i] * t;
-            v2[i] = v[i] + 0.5 * a1[i] * t;
+            x2[i] = pos[i] + 0.5 * v1[i] * h;
+            v2[i] = v[i] + 0.5 * a1[i] * h;
         }
 
         MagneticField(x2,B,B0,initialB,mode);
@@ -76,8 +75,8 @@ int main(){
         }
 
         for(int i=0; i<3; i++){
-            x3[i] = pos[i] + 0.5 * v2[i] * t;
-            v3[i] = v[i] + 0.5 * a2[i] * t;
+            x3[i] = pos[i] + 0.5 * v2[i] * h;
+            v3[i] = v[i] + 0.5 * a2[i] * h;
         }
 
         MagneticField(x3,B,B0,initialB,mode);
@@ -88,8 +87,8 @@ int main(){
         }
 
         for(int i=0; i<3; i++){
-            x4[i] = pos[i] + v3[i] * t;
-            v4[i] = v[i] + a3[i] * t;
+            x4[i] = pos[i] + v3[i] * h;
+            v4[i] = v[i] + a3[i] * h;
         }
 
         MagneticField(x4,B,B0,initialB,mode);
@@ -100,33 +99,34 @@ int main(){
         }
 
         for(int i=0; i<3; i++){
-            pos[i] += (t/6) * (v1[i] + 2*v2[i] + 2*v3[i] + v4[i]);
+            pos[i] += (h/6) * (v1[i] + 2*v2[i] + 2*v3[i] + v4[i]);
         }
 
         for(int i=0; i<3; i++){
-            v[i] += (t/6) * (a1[i] + 2*a2[i] + 2*a3[i] + a4[i]);
+            v[i] += (h/6) * (a1[i] + 2*a2[i] + 2*a3[i] + a4[i]);
         }
 
 //###########
 //RK4
 
-        radius[i] = Gyroradius(q,m,v,B);
-        frequency[i] = Frequency(q,m,v,B);
+        radius.push_back(Gyroradius(q,m,v,B));
+        frequency.push_back(Frequency(q,m,v,B));
 
-        for(int j = 0; j < 3; j++){
-            magfield[i][j] = B[j];
+        std::vector<double> temp(3);    //temporary vec to be used to push
+                                        //into vector of vectors
+
+        for(int i = 0; i < 3; i++){
+            temp[i] = B[i];
         }
+        magfield.push_back(temp);
 
-        std::vector<double> temp(3);
-
-        for(int j = 0; j < 3; j++){
-            if(pos[j] != pos[j]){       //comparing two nan value is false
+        for(int i = 0; i < 3; i++){
+            if(pos[i] != pos[i]){       //comparing two nan value is false
                 std::cout << "Nan value" << std::endl;
-                std::cout << "i = " << i << std::endl;
                 return 1;
             }
             
-            temp[j] = pos[j];
+            temp[i] = pos[i];
         }
         posOut.push_back(temp);
 
@@ -138,19 +138,20 @@ int main(){
         if(stopFlag){
             if(SimStop(B)){
                 std::cout << "SimStop Trigered" << std::endl;
-                N = i;
-                std::cout << " N = " << i << std::endl;
                 break;
             }
         }
+
+        time += h;
+        cout << "time = " << time << endl;
     }
 
 //Print values to .dat files
 
-    printPos(N, t, maxValues, minValues, posOut);
-    printRad(N, t, radius);
-    printMag(N, t, magfield);
-    printFreq(N, t, frequency);
+    printPos(posOut.size(), h, maxValues, minValues, posOut);
+    printRad(radius.size(), h, radius);
+    printMag(magfield.size(), h, magfield);
+    printFreq(frequency.size(), h, frequency);
 
     return 0;
 }
