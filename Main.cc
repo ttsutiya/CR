@@ -56,7 +56,7 @@ int main(){
             v1[i] = v[i];
         }
 
-        MagneticField(x1,pos0,B,B0,initialB,mode);
+        MagneticField(x1,B,B0,initialB,mode);
         Lorentz(F,q,v1,B);
 
         for(int i=0; i<3; i++){
@@ -68,7 +68,7 @@ int main(){
             v2[i] = v[i] + 0.5 * a1[i] * t;
         }
 
-        MagneticField(x2,pos0,B,B0,initialB,mode);
+        MagneticField(x2,B,B0,initialB,mode);
         Lorentz(F,q,v2,B);
         
         for(int i=0; i<3; i++){
@@ -80,7 +80,7 @@ int main(){
             v3[i] = v[i] + 0.5 * a2[i] * t;
         }
 
-        MagneticField(x3,pos0,B,B0,initialB,mode);
+        MagneticField(x3,B,B0,initialB,mode);
         Lorentz(F,q,v3,B);
         
         for(int i=0; i<3; i++){
@@ -92,7 +92,7 @@ int main(){
             v4[i] = v[i] + a3[i] * t;
         }
 
-        MagneticField(x4,pos0,B,B0,initialB,mode);
+        MagneticField(x4,B,B0,initialB,mode);
         Lorentz(F,q,v4,B);
         
         for(int i=0; i<3; i++){
