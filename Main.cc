@@ -18,7 +18,6 @@ int main(){
     std::vector<double> pos(3), v(3), B(3);
 
     PhysInit(N,t,q,m,pos,v,B,initialB,mode,stopFlag);
-    cout << pos[0] << " " << pos[1] << " " << pos[2] <<endl;
 
     std::vector<std::vector<double>> posOut(N, std::vector<double>(3));
     for(int i = 0; i < 3; i++){
@@ -55,9 +54,7 @@ int main(){
         for(int i=0; i<3; i++){
             x1[i] = pos[i];
             v1[i] = v[i];
-            cout << pos[i] << " ";
         }
-        cout << endl;
 
         MagneticField(x1,pos0,B,B0,initialB,mode);
         Lorentz(F,q,v1,B);
