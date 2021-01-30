@@ -1,26 +1,26 @@
 #Duration
-finalTime = 0.1
+finalTime = 100
 
 #Step size
-h = 1e-3
+t = 1e-3
 
 charge = 1.6e-19
 mass = 1.67e-27
 
-pos(x) = 0
-pos(y) = 0
-pos(z) = 1e6
+pos(x) = 1e5
+pos(y) = 1e5
+pos(z) = 1e4
 
-velocity(x) = 1e7
-velocity(y) = 1e7
-velocity(z) = 1e4
+velocity(x) = 1e5
+velocity(y) = 1e4
+velocity(z) = 1e5
 
-magfield(x) = 1e7
+magfield(x) = 0
 magfield(y) = 0
 magfield(z) = 0
 
 #B_0 used in the dipole field
-initialB = 1e13
+initialB = 7e8
 
 #   0 - constant
 #   1 - 1/r
@@ -28,5 +28,5 @@ initialB = 1e13
 #   3 - dipole
 mode = 3
 
-#Stop Simulation if mag field gets too weak
-stopFlag = 1
+#Stop simulation if mag field gets too weak
+SimStop = 1
