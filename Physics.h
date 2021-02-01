@@ -2,9 +2,9 @@
 
 #define c_light 299792458
 
-double PhysInit(double &finalTime, double &h, double &q, double &m,
+double PhysInit(double &finalTime, double &h, double &delta, double &q, double &m,
         std::vector<double> &pos, std::vector<double> &v, std::vector<double> &B,
-        double &initialB, int &mode, bool &stopFlag);
+        double &initialB, int &mode, bool &adapFlag, bool &stopFlag);
 double Lorentz(std::vector<double> &F, const double &q, const std::vector<double> &v,
         const std::vector<double> &B);
 double Gyroradius(const double &q, const double &m, const std::vector<double> &v,
@@ -16,9 +16,9 @@ double Frequency(const double &q, const double &m, const std::vector<double> v,
 bool SimStop(const std::vector<double> B);
 double RelativisticMass(double m, std::vector<double> v);
 
-double PhysInit(double &finalTime, double &h, double &q, double &m,
+double PhysInit(double &finalTime, double &h, double &delta, double &q, double &m,
         std::vector<double> &pos, std::vector<double> &v, std::vector<double> &B,
-        double &initialB, int &mode, bool &stopFlag){
+        double &initialB, int &mode, bool &adapFlag, bool &stopFlag){
 
     std::ifstream config("config");
 
@@ -52,45 +52,51 @@ double PhysInit(double &finalTime, double &h, double &q, double &m,
                     ss >> h;
                     break;
                 case 2:
-                    ss >> q;
+                    ss >> delta;
                     break;
                 case 3:
-                    ss >> m;
+                    ss >> q;
                     break;
                 case 4:
-                    ss >> pos[0];
+                    ss >> m;
                     break;
                 case 5:
-                    ss >> pos[1];
+                    ss >> pos[0];
                     break;
                 case 6:
-                    ss >> pos[2];
+                    ss >> pos[1];
                     break;
                 case 7:
-                    ss >> v[0];
+                    ss >> pos[2];
                     break;
                 case 8:
-                    ss >> v[1];
+                    ss >> v[0];
                     break;
                 case 9:
-                    ss >> v[2];
+                    ss >> v[1];
                     break;
                 case 10:
-                    ss >> B[0];
+                    ss >> v[2];
                     break;
                 case 11:
-                    ss >> B[1];
+                    ss >> B[0];
                     break;
                 case 12:
-                    ss >> B[2];
+                    ss >> B[1];
                     break;
                 case 13:
-                    ss >> initialB;
+                    ss >> B[2];
                     break;
                 case 14:
-                    ss >> mode;
+                    ss >> initialB;
                     break;
                 case 15:
+                    ss >> mode;
+                    break;
+                case 16:
+                    ss >> adapFlag;
+                    break;
+                case 17:
                     ss >> stopFlag;
                     break;
             }

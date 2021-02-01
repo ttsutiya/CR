@@ -1,8 +1,12 @@
 #Duration
-finalTime = 100
+finalTime = 21
 
 #Step size
 t = 1e-3
+
+#Precision
+#delta = 1e4
+delta = 9500
 
 charge = 1.6e-19
 mass = 1.67e-27
@@ -17,7 +21,7 @@ velocity(z) = 1e5
 
 magfield(x) = 0
 magfield(y) = 0
-magfield(z) = 0
+magfield(z) = 1e-5
 
 #B_0 used in the dipole field
 initialB = 7e8
@@ -28,5 +32,8 @@ initialB = 7e8
 #   3 - dipole
 mode = 3
 
+#Adaptative rk4
+adapFlag = 1
+
 #Stop simulation if mag field gets too weak
-SimStop = 1
+simStop = 1

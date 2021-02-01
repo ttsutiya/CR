@@ -8,15 +8,15 @@ int main(){
 
     std::cout << "***COSMIC RAYS***\n\n";
 
-    double finalTime, h;
-    bool stopFlag;
+    double finalTime, h, delta;
+    bool adapFlag,stopFlag;
 
     double q, m, initialB;
     int mode;
 
     std::vector<double> pos(3), v(3), B(3);
 
-    PhysInit(finalTime,h,q,m,pos,v,B,initialB,mode,stopFlag);
+    PhysInit(finalTime,h,delta,q,m,pos,v,B,initialB,mode,adapFlag,stopFlag);
 
     std::vector<double> pos0(3), v0(3), B0(3);
     for(int i = 0; i < 3; i++){     // Saves the starting values for future use
@@ -60,17 +60,55 @@ int main(){
     frequency[0] = Frequency(q,m,v,B);
 
 //#############################################################################
+//                               RK4
+//#############################################################################
+
+    int adapCounter = 0;       //variables for the adaptative method
+    double adapTime;
+    std::vector<double> adapPosComp(3), adapVComp(3);
+    std::vector<double> adapPos(3), adapV(3);
+    std::vector<double> adapMaxValues(3), adapMinValues(3);
 
     for(double time = h; time <= finalTime;){         
 
-        Rk4(pos,v,B,B0,initialB,mode,q,m,h);
-        
-//        if(adapCounter == 0){
-//            adapCounter++;
-//        }else if(adapCounter == 1){
-//
-//            adapCounter = 0;
-//        }
+        if(adapFlag){
+            if(adapCounter == 0){
+                adapPos = pos;
+                adapV = v;
+
+                adapMaxValues = maxValues;
+                adapMinValues = minValues;
+                adapTime = time;
+                adapCounter++;
+            }else if(adapCounter == 1){
+                adapCounter++;
+            }else if(adapCounter == 2){
+                adapCounter = 0;
+
+                adapPosComp = adapPos;
+                adapVComp = adapV;
+                Rk(adapPosComp,adapVComp,B,B0,initialB,mode,q,m,2*h);
+
+                switch(RkCompare(adapPos,adapPosComp,h,delta)){
+                    case 1:
+                        time = adapTime; 
+                        pos = adapPos;
+                        v = adapV;
+                        maxValues = adapMaxValues;
+                        minValues = adapMinValues;
+
+                        posOut.resize(posOut.size()-2);
+                        radius.resize(radius.size()-2);
+                        frequency.resize(frequency.size()-2);
+                        magfield.resize(magfield.size()-2);
+
+                    default:
+                        break;
+                }
+            }
+        }
+
+        Rk(pos,v,B,B0,initialB,mode,q,m,h);
 
         std::vector<double> temp(3);    //temporary vec to be used to push
                                         //into vector of vectors
