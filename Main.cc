@@ -62,8 +62,9 @@ int main(){
 //#############################################################################
 //                               RK4
 //#############################################################################
+    int adap = 0;       //adaptative counter
 
-    for(double time = 0; time <= finalTime;){         
+    for(double time = h; time <= finalTime;){         
 
         std::vector<double> F(3);
         std::vector<double> x1(3),x2(3),x3(3), x4(3);
@@ -126,6 +127,8 @@ int main(){
             v[i] += (h/6) * (a1[i] + 2*a2[i] + 2*a3[i] + a4[i]);
         }
 
+//        if(adap == 0) 
+
         std::vector<double> temp(3);    //temporary vec to be used to push
                                         //into vector of vectors
         for(int i = 0; i < 3; i++){
@@ -158,10 +161,11 @@ int main(){
             }
         }
 
-        time += h;
         timeStamp.push_back(time);
+        time += h;
         cout << "time = " << time << endl;
     }
+    cout << "time.size() = " << timeStamp.size() << endl;
 
 //#############################################################################
 //                      Print values to .dat files
