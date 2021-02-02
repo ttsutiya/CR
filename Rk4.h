@@ -83,30 +83,23 @@ double RkErr(const std::vector<double> &x1, const std::vector<double> &x2){
 }
 
 int RkCompare(const std::vector<double> &x1, const std::vector<double> &x2,
-              double &h, const double &delta){
+              double &h, const double &h0, const double &err){
 
     double epsolon = RkErr(x1,x2);
-    std::cout << "epsolon = " << epsolon << std::endl;
 
-    double ro = h * delta / epsolon;
-    std::cout << "ro = " << ro << std::endl;
+    double ro = err / epsolon;
     
     double newH = h * pow(ro,(1.0/4));
 
     if(newH > 2 * h){       //limit in case epsolon is too small
-        std::cout << "limit" << std::endl;
         newH = 2 * h;
     }
     
     if(ro > 1){
-    std::cout << ">h before = " << h << std::endl;
         h = newH;
-    std::cout << ">h after  = " << h << std::endl;
         return 0;
     }else if(ro < 1){
-    std::cout << "<h before = " << h << std::endl;
         h = newH;
-    std::cout << "<h after  = " << h << std::endl;
         return 1;
     }else{
         return 0;

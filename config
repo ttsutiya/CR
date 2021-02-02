@@ -1,12 +1,11 @@
 #Duration
-finalTime = 21
+finalTime = 100
 
 #Step size
 t = 1e-3
 
 #Precision
-#delta = 1e4
-delta = 9500
+err = 1e-11
 
 charge = 1.6e-19
 mass = 1.67e-27
@@ -21,7 +20,7 @@ velocity(z) = 1e5
 
 magfield(x) = 0
 magfield(y) = 0
-magfield(z) = 1e-5
+magfield(z) = 0
 
 #B_0 used in the dipole field
 initialB = 7e8

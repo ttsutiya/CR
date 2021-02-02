@@ -2,7 +2,7 @@
 
 #define c_light 299792458
 
-double PhysInit(double &finalTime, double &h, double &delta, double &q, double &m,
+double PhysInit(double &finalTime, double &h, double &err, double &q, double &m,
         std::vector<double> &pos, std::vector<double> &v, std::vector<double> &B,
         double &initialB, int &mode, bool &adapFlag, bool &stopFlag);
 double Lorentz(std::vector<double> &F, const double &q, const std::vector<double> &v,
@@ -16,7 +16,7 @@ double Frequency(const double &q, const double &m, const std::vector<double> v,
 bool SimStop(const std::vector<double> B);
 double RelativisticMass(double m, std::vector<double> v);
 
-double PhysInit(double &finalTime, double &h, double &delta, double &q, double &m,
+double PhysInit(double &finalTime, double &h, double &err, double &q, double &m,
         std::vector<double> &pos, std::vector<double> &v, std::vector<double> &B,
         double &initialB, int &mode, bool &adapFlag, bool &stopFlag){
 
@@ -52,7 +52,7 @@ double PhysInit(double &finalTime, double &h, double &delta, double &q, double &
                     ss >> h;
                     break;
                 case 2:
-                    ss >> delta;
+                    ss >> err;
                     break;
                 case 3:
                     ss >> q;

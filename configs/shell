@@ -1,5 +1,11 @@
-N = 1e5
+#Duration
+finalTime = 100
+
+#Step size
 t = 1e-3
+
+#Precision
+err = 1e4
 
 charge = 1.6e-19
 mass = 1.67e-27
@@ -16,7 +22,17 @@ magfield(x) = 0
 magfield(y) = 0
 magfield(z) = 0
 
+#B_0 used in the dipole field
 initialB = 7e8
 
+#   0 - constant
+#   1 - 1/r
+#   2 - 1/r^2
+#   3 - dipole
 mode = 3
-SimStop = 1
+
+#Adaptative rk4
+adapFlag = 1
+
+#Stop simulation if mag field gets too weak
+simStop = 1

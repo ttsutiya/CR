@@ -8,7 +8,7 @@ int main(){
 
     std::cout << "***COSMIC RAYS***\n\n";
 
-    double finalTime, h, delta;
+    double finalTime, h, h0, err;
     bool adapFlag,stopFlag;
 
     double q, m, initialB;
@@ -16,7 +16,7 @@ int main(){
 
     std::vector<double> pos(3), v(3), B(3);
 
-    PhysInit(finalTime,h,delta,q,m,pos,v,B,initialB,mode,adapFlag,stopFlag);
+    PhysInit(finalTime,h,err,q,m,pos,v,B,initialB,mode,adapFlag,stopFlag);
 
     std::vector<double> pos0(3), v0(3), B0(3);
     for(int i = 0; i < 3; i++){     // Saves the starting values for future use
@@ -24,6 +24,7 @@ int main(){
         v0[i] = v[i];
         B0[i] = B[i];
     }
+    h0 = h;
 
     std::vector<double> maxValues(3), minValues(3);
     for(int i = 0; i < 3; i++){         //Match the values of max and min with 
@@ -69,7 +70,7 @@ int main(){
     std::vector<double> adapPos(3), adapV(3);
     std::vector<double> adapMaxValues(3), adapMinValues(3);
 
-    for(double time = h; time <= finalTime;){         
+    for(double time = 0; time <= finalTime || adapCounter != 0;){         
 
         if(adapFlag){
             if(adapCounter == 0){
@@ -89,7 +90,7 @@ int main(){
                 adapVComp = adapV;
                 Rk(adapPosComp,adapVComp,B,B0,initialB,mode,q,m,2*h);
 
-                switch(RkCompare(adapPos,adapPosComp,h,delta)){
+                switch(RkCompare(pos,adapPosComp,h,h0,err)){
                     case 1:
                         time = adapTime; 
                         pos = adapPos;
@@ -97,10 +98,12 @@ int main(){
                         maxValues = adapMaxValues;
                         minValues = adapMinValues;
 
+                        timeStamp.resize(timeStamp.size()-2);
                         posOut.resize(posOut.size()-2);
                         radius.resize(radius.size()-2);
                         frequency.resize(frequency.size()-2);
                         magfield.resize(magfield.size()-2);
+                        continue;
 
                     default:
                         break;
@@ -117,9 +120,9 @@ int main(){
                 std::cout << "Nan value" << std::endl;
                 return 1;
             }
-            
             temp[i] = pos[i];
         }
+
         posOut.push_back(temp);
 
         radius.push_back(Gyroradius(q,m,v,B));
@@ -142,11 +145,10 @@ int main(){
             }
         }
 
-        timeStamp.push_back(time);
         time += h;
+        timeStamp.push_back(time);
         cout << "time = " << time << endl;
     }
-    cout << "time.size() = " << timeStamp.size() << endl;
 
 //#############################################################################
 //                      Print values to .dat files
