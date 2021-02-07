@@ -6,19 +6,18 @@ void PlotMagField(){
 
     c2 -> SetGrid();
 
-    Int_t nlines = 0;
     Int_t N;
-
     in >> N;
 
-    Double_t mag[N], time[N];
+    std::vector<Double_t> time(N);
+    std::vector<Double_t> mag(N);
 
-    while(nlines < N){
-        in >>time[nlines] >>mag[nlines];
-        nlines++;
+    for(int i = 0; i < N; i++){
+        in >> time[i];
+        in >> mag[i];
     }
     
-    TGraph *gr = new TGraph(N,time,mag);
+    TGraph *gr = new TGraph(N,&time[0],&mag[0]);
     gr->Draw("APL");
 
     gr->SetTitle("Magnetic Field");

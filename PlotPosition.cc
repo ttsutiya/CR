@@ -18,7 +18,7 @@ in >> x_max >> y_max >> z_max >> x_min >> y_min >> z_min;
 view->SetRange(x_min/au, y_min/au, z_min/au, x_max/au, y_max/au, z_max/au);
 
 TPolyLine3D *h123 = new TPolyLine3D(N); 
-     
+
     for (Int_t i = 0; i < N; i++){
         in >> t >> x >> y >> z;
         h123->SetPoint(i,x/au,y/au,z/au);
