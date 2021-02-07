@@ -5,7 +5,7 @@ finalTime = 1e5
 t = 1e-3
 
 #Precision
-err = 1e4
+err = 1e-3
 
 charge = 1.6e-19
 mass = 1.67e-27
