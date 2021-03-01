@@ -44,7 +44,7 @@ int main(){
     std::vector<double> timeStamp(1);
     timeStamp[0] = 0;
 
-    std::vector<std::vector<double>> posOut(1, std::vector<double>(3));
+    std::vector<std::vector<double> > posOut(1, std::vector<double>(3));
     for(int i = 0; i < 3; i++){
         posOut[0][i] = pos[i];
     }
@@ -52,7 +52,7 @@ int main(){
     std::vector<double> radius(1);
     radius[0] = Gyroradius(q,m,v,B);
 
-    std::vector<std::vector<double>> magfield(1, std::vector<double>(3));
+    std::vector<std::vector<double> > magfield(1, std::vector<double>(3));
     for(int i = 0; i < 3; i++){
         magfield[0][i] = B[i];
     }

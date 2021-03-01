@@ -21,7 +21,7 @@ void PlotRadius(){
     TGraph *gr = new TGraph(N,&time[0],&rad[0]);
     gr->Draw("APL");
 
-    gr->SetTitle("Gyro Radius");
+    gr->SetTitle("Gyroradius");
     gr->GetXaxis()->SetTitle("time (s)");
     gr->GetYaxis()->SetTitle("radius (m)");
 }

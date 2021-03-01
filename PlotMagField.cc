@@ -20,7 +20,7 @@ void PlotMagField(){
     TGraph *gr = new TGraph(N,&time[0],&mag[0]);
     gr->Draw("APL");
 
-    gr->SetTitle("Magnetic Field");
+    gr->SetTitle("Magnetic field");
     gr->GetXaxis()->SetTitle("time (s)");
     gr->GetYaxis()->SetTitle("B (tesla)");
 }

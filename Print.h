@@ -2,7 +2,7 @@
 
 void printPos(const std::vector<double> &timeStamp, const std::vector<double> &maxValues,
         const std::vector<double> &minValues, 
-        const std::vector<std::vector<double>> &posOut){
+            const std::vector<std::vector<double> > &posOut){
     std::ofstream pos("pos.dat");                   //N
                                                     //Max x Max y Max z Min x Min y Min z
                                                     //time x y z 
@@ -60,7 +60,7 @@ void printFreq(const std::vector<double> &timeStamp,
 }
 
 void printMag(const std::vector<double> &timeStamp,
-              const std::vector<std::vector<double>> &magfield){
+              const std::vector<std::vector<double> > &magfield){
     std::ofstream mag("magfield.dat");
 
     mag << magfield.size() << std::endl;
