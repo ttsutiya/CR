@@ -9,10 +9,10 @@ int main(){
     std::cout << "***COSMIC RAYS***\n\n";
 
     double finalTime, h, h0, err;
-    bool adapFlag,stopFlag;
+    bool adapFlag;
 
     double q, m, initialB;
-    int mode;
+    int mode, stopFlag;
 
     std::vector<double> pos(3), v(3), B(3);
 
@@ -138,11 +138,31 @@ int main(){
             minValues[i] = Min(minValues[i],pos[i]);
         }
 
-        if(stopFlag){
-            if(SimStop(B)){
-                std::cout << "SimStop Trigered" << std::endl;
-                break;
+        bool breakFlag = false;
+        if(stopFlag != 0){
+            switch(stopFlag){
+                case 1:{
+                    if(SimStop(B)){
+                        std::cout << "SimStop Triggered Mode(1)" << std::endl;
+                        breakFlag = true;
+                    }
+                    break;
+                }
+
+                case 2:{
+                    if( pos0[2] >= 0 && pos[2] < 0 ||
+                        pos0[2] <= 0 && pos[2] > 0 ){
+
+                        std::cout << "SimStop Triggered Mode(2)" << std::endl;
+                        breakFlag = true;
+                    }
+                    break;
+                }
+
             }
+        }
+        if(breakFlag){
+            break;
         }
 
         time += h;

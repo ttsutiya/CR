@@ -5,18 +5,18 @@ finalTime = 100
 t = 1e-3
 
 #Precision
-err = 1e-11
+err = 1e-3
 
 charge = 1.6e-19
 mass = 1.67e-27
 
-pos(x) = 1e5
-pos(y) = 1e5
-pos(z) = 1e4
+pos(x) = 1e4
+pos(y) = 1e4
+pos(z) = 1e3
 
-velocity(x) = 1e5
-velocity(y) = 1e4
-velocity(z) = 1e5
+velocity(x) = 1e6
+velocity(y) = 1e3
+velocity(z) = 1e2
 
 magfield(x) = 0
 magfield(y) = 0
@@ -29,10 +29,15 @@ initialB = 7e8
 #   1 - 1/r
 #   2 - 1/r^2
 #   3 - dipole
-mode = 3
+#   4 - ASS Model
+mode = 4
 
 #Adaptative rk4
 adapFlag = 1
 
 #Stop simulation if mag field gets too weak
-simStop = 1
+#   0 - Disabled
+#   1 - Magnitude
+#   2 - Z=0
+
+simStop = 2

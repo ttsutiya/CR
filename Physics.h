@@ -1,10 +1,12 @@
 #include "Main.h"
 
-#define c_light 299792458
+const double C_LIGHT = 299792458;
+const double AU = 1.49598e11;
+const double PC = 2.06265e5;
 
 double PhysInit(double &finalTime, double &h, double &err, double &q, double &m,
         std::vector<double> &pos, std::vector<double> &v, std::vector<double> &B,
-        double &initialB, int &mode, bool &adapFlag, bool &stopFlag);
+        double &initialB, int &mode, bool &adapFlag, int &stopFlag);
 double Lorentz(std::vector<double> &F, const double &q, const std::vector<double> &v,
         const std::vector<double> &B);
 double Gyroradius(const double &q, const double &m, const std::vector<double> &v,
@@ -15,10 +17,12 @@ double Frequency(const double &q, const double &m, const std::vector<double> v,
        const std::vector<double> B);
 bool SimStop(const std::vector<double> B);
 double RelativisticMass(double m, std::vector<double> v);
+double ASSModel(double ro, double theta);
+double AModel(double z);
 
 double PhysInit(double &finalTime, double &h, double &err, double &q, double &m,
         std::vector<double> &pos, std::vector<double> &v, std::vector<double> &B,
-        double &initialB, int &mode, bool &adapFlag, bool &stopFlag){
+        double &initialB, int &mode, bool &adapFlag, int &stopFlag){
 
     std::ifstream config("config");
 
@@ -143,32 +147,58 @@ double Gyroradius(const double &q, const double &m, const std::vector<double> &v
 
 double MagneticField(const std::vector<double> &pos, std::vector<double> &B,
         const std::vector<double> &B0, const double &initialB, const int &mode){
-    
-    double r = AbsDistance(pos);
+
     switch(mode){
-        case 0:
+        case 0:{
             B[0] = B0[0];
             B[1] = B0[1];
             B[2] = B0[2];
             break;
+            }
 
-        case 1:
+        case 1:{
+            double r = AbsDistance(pos);
+
             B[0] = B0[0] / (r);
             B[1] = B0[1] / (r);
             B[2] = B0[2] / (r);
             break;
+            }
 
-        case 2:
+        case 2:{
+            double r = AbsDistance(pos);
+
             B[0] = B0[0] / pow(r,2);
             B[1] = B0[1] / pow(r,2);
             B[2] = B0[2] / pow(r,2);
             break;
+            }
 
-        case 3:
+        case 3:{
+            double r = AbsDistance(pos);
+
             B[0] =  (3*initialB * pos[0] * pos[2]) / pow(r,5);
             B[1] =  (3*initialB * pos[1] * pos[2]) / pow(r,5);
             B[2] =  (initialB * (3*pow(pos[2],2) - pow(r,2))) / pow(r,5);
             break;
+            }
+
+        case 4:{
+            double ro = sqrt( pow(pos[0],2) + pow(pos[1],2) );
+            double theta = atan2(pos[1],pos[0]);
+            double Bsp, Zscale, Bro, Btheta;
+            
+            Bsp = ASSModel(ro,theta);
+            Zscale = AModel(pos[2]);
+
+            Bro = Bsp * sin(ro) * Zscale;
+            Btheta = Bsp * cos(ro) * Zscale;
+
+            B[0] = Bro * cos(theta) - Btheta * sin(theta);
+            B[1] = Btheta * sin(theta) + Btheta * cos(theta);
+            B[2] = 0;
+            break;
+            }
     }
     return 0;
 }
@@ -201,8 +231,32 @@ bool SimStop(const std::vector<double> B){
 double RelativisticMass(double m, std::vector<double> v){
 
     double v_mod = sqrt( pow(v[0],2) + pow(v[1],2) + pow(v[2],2));
-    std::cout << "% (v_mod / c) = " << 100*(v_mod/c_light) << std::endl;
-    double gamma = 1 / (sqrt(1 - pow(v_mod,2) / pow(c_light,2)));
+    std::cout << "% (v_mod / c) = " << 100*(v_mod/C_LIGHT) << std::endl;
+    double gamma = 1 / (sqrt(1 - pow(v_mod,2) / pow(C_LIGHT,2)));
 
     return m*gamma;
+}
+
+double ASSModel(double ro, double theta){
+    double unts = PC * AU;      //parsec to meters
+
+    double xi = 10.55e3 * unts;
+    double rnaught = 8.5e3 * unts;
+    double Bnaught = (3 * 8.5e3 * unts / ro) * pow( tanh(ro / 2 * unts),3 ) * 1e-10;
+
+    double Bsp = Bnaught * pow( cos( theta - (-5.67) * log(ro/xi) ),2 );
+
+    return Bsp;
+}
+
+double AModel(double z){
+    double unts = PC * AU;      //parsec to meters
+
+    double z1 = 0.3e3 * unts;
+    double z2 = 4e3 * unts;
+    double z3 = 20 * unts;
+
+    double Zscale = ( ( 1 / (2 * cosh(z/z1)) ) + ( 1 / (2 * cosh(z/z2) )) ) * tanh(z/z3);
+
+    return Zscale;
 }
