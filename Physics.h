@@ -18,12 +18,13 @@ double Frequency(const double &q, const double &m, const std::vector<double> v,
 bool SimStop(const std::vector<double> B);
 double RelativisticMass(double m, std::vector<double> v);
 double ASSModel(double ro, double theta);
+double BSSModel(double ro, double theta);
 double AModel(double z);
 
 double PhysInit(double &finalTime, double &h, double &err, double &q, double &m,
         std::vector<double> &pos, std::vector<double> &v, std::vector<double> &B,
         double &initialB, int &mode, bool &adapFlag, int &stopFlag){
-
+        
     std::ifstream config("config");
 
     if(!config.is_open()){
@@ -199,6 +200,23 @@ double MagneticField(const std::vector<double> &pos, std::vector<double> &B,
             B[2] = 0;
             break;
             }
+
+        case 5:{
+            double ro = sqrt( pow(pos[0],2) + pow(pos[1],2) );
+            double theta = atan2(pos[1],pos[0]);
+            double Bsp, Zscale, Bro, Btheta;
+            
+            Bsp = BSSModel(ro,theta);
+            Zscale = AModel(pos[2]);
+
+            Bro = Bsp * sin(ro) * Zscale;
+            Btheta = Bsp * cos(ro) * Zscale;
+
+            B[0] = Bro * cos(theta) - Btheta * sin(theta);
+            B[1] = Btheta * sin(theta) + Btheta * cos(theta);
+            B[2] = 0;
+            break;
+            }
     }
     return 0;
 }
@@ -211,7 +229,7 @@ double Frequency(const double &q, const double &m, const std::vector<double> v,
     
     B_mod = VecMod(B);
 
-    f = (q * B_mod) / (m * 2*pi);
+    f = (q * B_mod) / (m * 2 * PI);
     
     return f;
 }
@@ -245,6 +263,18 @@ double ASSModel(double ro, double theta){
     double Bnaught = (3 * 8.5e3 * unts / ro) * pow( tanh(ro / 2 * unts),3 ) * 1e-10;
 
     double Bsp = Bnaught * pow( cos( theta - (-5.67) * log(ro/xi) ),2 );
+
+    return Bsp;
+}
+
+double BSSModel(double ro, double theta){
+    double unts = PC * AU;      //parsec to meters
+
+    double xi = 10.55e3 * unts;
+    double rnaught = 8.5e3 * unts;
+    double Bnaught = (3 * 8.5e3 * unts / ro) * pow( tanh(ro / 2 * unts),3 ) * 1e-10;
+
+    double Bsp = Bnaught * cos( theta - (-5.67) * log(ro/xi) );
 
     return Bsp;
 }

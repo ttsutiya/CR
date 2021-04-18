@@ -1,5 +1,9 @@
 #include "Main.h"
 
+//#############################################################################
+//          Runge Kutta 4 Method
+//#############################################################################
+
 void Rk(std::vector<double> &pos, std::vector<double> &v,
          std::vector<double> &B, const std::vector<double> &B0,
          const double &initialB, const int mode,
@@ -67,6 +71,10 @@ void Rk(std::vector<double> &pos, std::vector<double> &v,
     }
 }
 
+//#############################################################################
+//                 Error of the method 
+//#############################################################################
+
 double RkErr(const std::vector<double> &x1, const std::vector<double> &x2){
     std::vector<double> error(3);
 
@@ -82,8 +90,13 @@ double RkErr(const std::vector<double> &x1, const std::vector<double> &x2){
     return sqrt(sum);
 }
 
+//#############################################################################
+//                  Compare with config precision 
+//                  See: Comptational Physics by Mark Newman page 358
+//#############################################################################
+
 int RkCompare(const std::vector<double> &x1, const std::vector<double> &x2,
-              double &h, const double &h0, const double &err){
+              double &h, const double &err){
 
     double epsolon = RkErr(x1,x2);
 
@@ -95,13 +108,11 @@ int RkCompare(const std::vector<double> &x1, const std::vector<double> &x2,
         newH = 2 * h;
     }
     
-    if(ro > 1){
-        h = newH;
+    h = newH;       //new step size
+
+    if(ro >= 1){
         return 0;
-    }else if(ro < 1){
-        h = newH;
-        return 1;
     }else{
-        return 0;
+        return 1;
     }
 }

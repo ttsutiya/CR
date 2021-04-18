@@ -1,5 +1,5 @@
 #Duration
-finalTime = 100
+finalTime = 1000
 
 #Step size
 t = 1e-3
@@ -10,13 +10,13 @@ err = 1e-3
 charge = 1.6e-19
 mass = 1.67e-27
 
-pos(x) = 1e4
-pos(y) = 1e4
-pos(z) = 1e3
+pos(x) = 1e5
+pos(y) = 1e5
+pos(z) = 1e5
 
-velocity(x) = 1e6
+velocity(x) = 1e3
 velocity(y) = 1e3
-velocity(z) = 1e2
+velocity(z) = 1e4
 
 magfield(x) = 0
 magfield(y) = 0
@@ -30,6 +30,7 @@ initialB = 7e8
 #   2 - 1/r^2
 #   3 - dipole
 #   4 - ASS Model
+#   5 - BSS Model
 mode = 4
 
 #Adaptative rk4
@@ -39,5 +40,4 @@ adapFlag = 1
 #   0 - Disabled
 #   1 - Magnitude
 #   2 - Z=0
-
 simStop = 2

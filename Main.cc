@@ -16,15 +16,20 @@ int main(){
 
     std::vector<double> pos(3), v(3), B(3);
 
-    PhysInit(finalTime,h,err,q,m,pos,v,B,initialB,mode,adapFlag,stopFlag);
+    PhysInit(finalTime,h,err,q,m,pos,v,B,initialB,mode,adapFlag,stopFlag);  //Get initial values from config file
+
+//#############################################################################
+    // Saves the starting values for future use
+//#############################################################################
 
     std::vector<double> pos0(3), v0(3), B0(3);
-    for(int i = 0; i < 3; i++){     // Saves the starting values for future use
-        pos0[i] = pos[i];
+    for(int i = 0; i < 3; i++){             pos0[i] = pos[i];
         v0[i] = v[i];
         B0[i] = B[i];
     }
     h0 = h;
+
+//#############################################################################
 
     std::vector<double> maxValues(3), minValues(3);
     for(int i = 0; i < 3; i++){         //Match the values of max and min with 
@@ -32,7 +37,9 @@ int main(){
         minValues[i] = pos[i];
     }
 
-    m = RelativisticMass(m,v);
+//#############################################################################
+
+    m = RelativisticMass(m,v);          //relativistc mass adjustment
     std::cout << "mass = " <<  m << std::endl;
 
 //#############################################################################
@@ -72,11 +79,11 @@ int main(){
 
     for(double time = 0; time <= finalTime || adapCounter != 0;){         
 
-        if(adapFlag){
+        if(adapFlag){                       //Perform the adaptative method
             if(adapCounter == 0){
-                adapPos = pos;
-                adapV = v;
-
+                adapPos = pos;              //Store initial values
+                adapV = v;                  //to be used again in case
+                                            //the precision check fails
                 adapMaxValues = maxValues;
                 adapMinValues = minValues;
                 adapTime = time;
@@ -88,11 +95,11 @@ int main(){
 
                 adapPosComp = adapPos;
                 adapVComp = adapV;
-                Rk(adapPosComp,adapVComp,B,B0,initialB,mode,q,m,2*h);
+                Rk(adapPosComp,adapVComp,B,B0,initialB,mode,q,m,2*h);   //double step
 
-                switch(RkCompare(pos,adapPosComp,h,h0,err)){
-                    case 1:
-                        time = adapTime; 
+                switch(RkCompare(pos,adapPosComp,h,err)){
+                    case 1:                     //Precison failed
+                        time = adapTime;        //Revert everything back 2 steps
                         pos = adapPos;
                         v = adapV;
                         maxValues = adapMaxValues;
@@ -115,8 +122,9 @@ int main(){
 
         std::vector<double> temp(3);    //temporary vec to be used to push
                                         //into vector of vectors
-        for(int i = 0; i < 3; i++){
-            if(pos[i] != pos[i]){       //comparing two nan value is false
+                                        
+        for(int i = 0; i < 3; i++){     //check for pos error
+            if(pos[i] != pos[i]){       //comparing two nan value gives false
                 std::cout << "Nan value" << std::endl;
                 return 1;
             }
@@ -133,7 +141,7 @@ int main(){
         }
         magfield.push_back(temp);
 
-        for(int i = 0; i < 3; i++){
+        for(int i = 0; i < 3; i++){             //check for new max/min values
             maxValues[i] = Max(maxValues[i],pos[i]);
             minValues[i] = Min(minValues[i],pos[i]);
         }
@@ -141,7 +149,7 @@ int main(){
         bool breakFlag = false;
         if(stopFlag != 0){
             switch(stopFlag){
-                case 1:{
+                case 1:{                        //Stop based on the magfield
                     if(SimStop(B)){
                         std::cout << "SimStop Triggered Mode(1)" << std::endl;
                         breakFlag = true;
@@ -149,7 +157,7 @@ int main(){
                     break;
                 }
 
-                case 2:{
+                case 2:{                        //stop based on z=0
                     if( pos0[2] >= 0 && pos[2] < 0 ||
                         pos0[2] <= 0 && pos[2] > 0 ){
 
@@ -178,6 +186,7 @@ int main(){
     printRad(timeStamp, radius);
     printFreq(timeStamp, frequency);
     printMag(timeStamp, magfield);
+    printRadAngle(pos0, pos);
 
     return 0;
 }

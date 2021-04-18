@@ -8,8 +8,8 @@ else
     if ./CR
     then
         echo "Running ROOT"
-        root PlotPosition.cc #PlotMagField.cc PlotFrequency.cc PlotRadius.cc
-        #root  PlotX.cc PlotY.cc PlotZ.cc
+        root plot/PlotPosition.cc plot/PlotMagField.cc plot/PlotFrequency.cc plot/PlotRadius.cc
+        #root  plot/PlotX.cc plot/PlotY.cc plot/PlotZ.cc
     fi
 
 fi

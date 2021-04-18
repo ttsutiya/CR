@@ -1,14 +1,15 @@
 #include "Main.h"
 
-#define pi 3.141592654
-#define rad2deg (180./pi)
+#define PI 3.141592654
+#define RAD2DEG (180./PI)
 
 double Max(double a, double b);
 double Min(double a, double b);
 double VecMod(const std::vector<double> &vec);
 double CrossProduct(std::vector<double> &c, const std::vector<double> &a,
         const std::vector<double> &b);
-double DotProduct(const std::vector<double> a, const std::vector<double> b);
+double DotProduct(const std::vector<double> &a, const std::vector<double> &b);
+double VecAngle(const std::vector<double> &pos0, const std::vector<double> &pos);
 double Decomposition(const std::vector<double> &v, const std::vector<double> &B,
         std::vector<double> &v_par, std::vector<double> &v_per);
 double AbsDistance(const std::vector<double> &pos);
@@ -55,11 +56,24 @@ double CrossProduct(std::vector<double> &c, const std::vector<double> &a,
     return 0;
 }
 
-double DotProduct(const std::vector<double> a, const std::vector<double> b){
+double DotProduct(const std::vector<double> &a, const std::vector<double> &b){
 
     double c = a[0]*b[0] + a[1]*b[1] + a[2]*b[2]; 
 
     return c;
+}
+
+double VecAngle(const std::vector<double> &pos0, const std::vector<double> &pos){
+    double angle;
+    double dot,A,B;
+
+    dot = DotProduct(pos0,pos);
+    A = VecMod(pos0);
+    B = VecMod(pos);
+
+    angle = acos( dot / (A*B) );
+
+    return angle * RAD2DEG;
 }
 
 double Decomposition(const std::vector<double> &v, const std::vector<double> &B, std::vector<double> &v_par, std::vector<double> &v_per){
@@ -81,7 +95,7 @@ double Decomposition(const std::vector<double> &v, const std::vector<double> &B,
     return 0;
 }
 
-double AbsDistance(const std::vector<double> &pos){   //absolute distance
+double AbsDistance(const std::vector<double> &pos){
     double absDist;
 
     absDist = VecMod(pos);
