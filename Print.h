@@ -3,7 +3,7 @@
 void printPos(const std::vector<double> &timeStamp, const std::vector<double> &maxValues,
         const std::vector<double> &minValues, 
             const std::vector<std::vector<double> > &posOut){
-    std::ofstream pos("dat/pos.dat");                   //N
+    std::ofstream pos("data/pos.dat");                   //N
                                                     //Max x Max y Max z Min x Min y Min z
                                                     //time x y z 
     pos << posOut.size() << std::endl;
@@ -33,7 +33,7 @@ void printPos(const std::vector<double> &timeStamp, const std::vector<double> &m
 
 void printRad(const std::vector<double> &timeStamp,
               const std::vector<double> radius){
-    std::ofstream rad("dat/rad.dat");
+    std::ofstream rad("data/rad.dat");
     
     rad << radius.size() << std::endl;
     rad << std::scientific << std::setprecision(10);
@@ -47,7 +47,7 @@ void printRad(const std::vector<double> &timeStamp,
 
 void printFreq(const std::vector<double> &timeStamp,
                const std::vector<double> &frequency){
-    std::ofstream freq("dat/frequency.dat");
+    std::ofstream freq("data/frequency.dat");
 
     freq << frequency.size() << std::endl;
     freq << std::scientific << std::setprecision(10);
@@ -61,7 +61,7 @@ void printFreq(const std::vector<double> &timeStamp,
 
 void printMag(const std::vector<double> &timeStamp,
               const std::vector<std::vector<double> > &magfield){
-    std::ofstream mag("dat/magfield.dat");
+    std::ofstream mag("data/magfield.dat");
 
     mag << magfield.size() << std::endl;
     mag << std::scientific << std::setprecision(10);
@@ -76,7 +76,7 @@ void printMag(const std::vector<double> &timeStamp,
 }
 
 void printRadAngle(const std::vector<double> &pos0, const std::vector<double> &pos){
-    std::ofstream ra("dat/radangle.dat");
+    std::ofstream ra("data/radangle.dat");
 
     double radius = sqrt( pow(pos[0],2) + pow(pos[1],2) );
     double angle = VecAngle(pos0,pos); 
