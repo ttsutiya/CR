@@ -5,7 +5,7 @@ using namespace std;
 
 int main(){
     int xp,yp;          xp = yp = 600;
-    double xd,yd;       xd = yd = 1e9;
+    double xd,yd;       xd = yd = 2;
     double xstart,ystart;
     vector<vector<double>> arr;
     double norm=0;

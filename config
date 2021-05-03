@@ -2,28 +2,32 @@
 finalTime = 1000
 
 #Step size
-t = 1e-3
+t = 1.000e-03
 
-#Precision
-err = 1e-3
+#Error
+err = 1.000e-03
 
-charge = 1.6e-19
-mass = 1.67e-27
+#Particle specifications
+charge = 1.600e-19
+mass = 1.670e-27
 
-pos(x) = 1e5
-pos(y) = 1e5
-pos(z) = 1e5
+#Initial position
+pos(x) = -3.017e+20
+pos(y) = -2.554e+20
+pos(z) = 3.061e+20
 
-velocity(x) = 1e3
-velocity(y) = 1e3
-velocity(z) = 1e4
+#Initial velocity
+vel(x) = 1.000e+03
+vel(y) = 1.000e+03
+vel(z) = 1.000e+04
 
-magfield(x) = 0
-magfield(y) = 0
-magfield(z) = 0
+#Constant magnetic field (mode 0/1/2)
+magfield(x) = 0.000e+00
+magfield(y) = 0.000e+00
+magfield(z) = 0.000e+00
 
-#B_0 used in the dipole field
-initialB = 7e8
+#B_0 used in the dipole field (mode 3)
+intialB = 7.000e+08
 
 #   0 - constant
 #   1 - 1/r
@@ -33,11 +37,12 @@ initialB = 7e8
 #   5 - BSS Model
 mode = 4
 
-#Adaptative rk4
+#Adaptative RK4
 adapFlag = 1
 
-#Stop simulation if mag field gets too weak
+#Stop simulation
 #   0 - Disabled
 #   1 - Magnitude
 #   2 - Z=0
 simStop = 2
+

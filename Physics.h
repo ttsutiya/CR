@@ -186,7 +186,7 @@ double MagneticField(const std::vector<double> &pos, std::vector<double> &B,
 
         case 4:{
             double ro = sqrt( pow(pos[0],2) + pow(pos[1],2) );
-            double theta = atan2(pos[1],pos[0]);
+            double theta = -atan2(pos[1],pos[0]);
             double Bsp, Zscale, Bro, Btheta;
             
             Bsp = ASSModel(ro,theta);
@@ -203,7 +203,7 @@ double MagneticField(const std::vector<double> &pos, std::vector<double> &B,
 
         case 5:{
             double ro = sqrt( pow(pos[0],2) + pow(pos[1],2) );
-            double theta = atan2(pos[1],pos[0]);
+            double theta = -atan2(pos[1],pos[0]);
             double Bsp, Zscale, Bro, Btheta;
             
             Bsp = BSSModel(ro,theta);
