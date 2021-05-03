@@ -110,6 +110,7 @@ int main(){
                         radius.resize(radius.size()-2);
                         frequency.resize(frequency.size()-2);
                         magfield.resize(magfield.size()-2);
+                            cout << "adap trig" << endl;
                         continue;
 
                     default:

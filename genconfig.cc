@@ -27,13 +27,13 @@ void RandPos(double &posx, double &posy, double &posz){
 
 int main(){
     string sdur = "#Duration";
-    int finalTime = 1000;
+    double finalTime = 1e7;
 
     string sstep = "#Step size";
     double t = 1e-3;
 
     string serr = "#Error";
-    double err = 1e-3;
+    double err = 1e10;
 
     string spar = "#Particle specifications";
     double charge = 1.6e-19;
@@ -83,6 +83,7 @@ int main(){
     ofstream cfg("config");
     
     cfg << std::scientific << std::setprecision(3);
+
     cfg  << sdur << "\nfinalTime = " << finalTime << "\n\n";
     cfg  << sstep << "\nt = " << t << "\n\n";
     cfg  << serr << "\nerr = " << err << "\n\n";

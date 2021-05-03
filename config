@@ -1,20 +1,20 @@
 #Duration
-finalTime = 1000
+finalTime = 1.000e+07
 
 #Step size
 t = 1.000e-03
 
 #Error
-err = 1.000e-03
+err = 1.000e+10
 
 #Particle specifications
 charge = 1.600e-19
 mass = 1.670e-27
 
 #Initial position
-pos(x) = -3.017e+20
-pos(y) = -2.554e+20
-pos(z) = 3.061e+20
+pos(x) = 3.751e+20
+pos(y) = 2.465e+20
+pos(z) = 2.203e+20
 
 #Initial velocity
 vel(x) = 1.000e+03

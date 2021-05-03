@@ -7,7 +7,7 @@ void printPos(const std::vector<double> &timeStamp, const std::vector<double> &m
                                                     //Max x Max y Max z Min x Min y Min z
                                                     //time x y z 
     pos << posOut.size() << std::endl;
-    pos << std::scientific << std::setprecision(10);
+    pos << std::scientific << std::setprecision(16);
 
     
     for(int i=0; i<3; i++){
