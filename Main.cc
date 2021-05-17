@@ -71,13 +71,14 @@ int main(){
 //                               RK4
 //#############################################################################
 
-    int adapCounter = 0;       //variables for the adaptative method
+    //variables for the adaptative method
+    int adapCounter = 0;
     double adapTime;
     std::vector<double> adapPosComp(3), adapVComp(3);
     std::vector<double> adapPos(3), adapV(3);
     std::vector<double> adapMaxValues(3), adapMinValues(3);
 
-    for(double time = 0; time <= finalTime || adapCounter != 0;){         
+    for(double time = 0; time <= finalTime || adapCounter != 0 || finalTime == 0;){         
 
         if(adapFlag){                       //Perform the adaptative method
             if(adapCounter == 0){

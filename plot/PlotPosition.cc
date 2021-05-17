@@ -1,6 +1,7 @@
 void PlotPosition(){
 
 ifstream in("data/pos.dat");
+//ifstream in("data/pos/pos_3.dat");
 
 const Double_t au = 149597870700;
 const Double_t pc = 3.0857e16;

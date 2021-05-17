@@ -1,6 +1,7 @@
 void PlotMagField(){
 
     ifstream in("data/magfield.dat");
+    //ifstream in("data//mag/magfield_1.dat");
 
     TCanvas *c2 = new TCanvas("c2", "MagField");
 

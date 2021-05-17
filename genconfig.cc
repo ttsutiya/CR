@@ -11,22 +11,23 @@ void RandPos(double &posx, double &posy, double &posz){
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();
     default_random_engine generator (seed); 
 
+    uniform_real_distribution<double> randtheta(0,PI/2);
+    double theta = randtheta(generator);
+     
     uniform_real_distribution<double> randphi(0,2*PI);
     double phi = randphi(generator);
 
-    uniform_real_distribution<double> randtheta(0,PI/2);
-    double theta = randtheta(generator);
-
-    cout << phi << endl << theta << endl;
+    cout << "theta = " << theta << endl << "phi = " << phi << endl;
     double r = 5e20;
 
-    posx = r * cos(theta) * cos(phi);
-    posy = r * sin(theta) * cos(phi);
-    posz = r * sin(phi);
+    posx = r * sin(theta) * cos(phi);
+    posy = r * sin(theta) * sin(phi);
+    posz = r * cos(theta);
 }
 
 int main(){
-    string sdur = "#Duration";
+    string sdur1 = "#Duration";
+    string sdur2 = "# 0 -> no time limit";
     double finalTime = 1e7;
 
     string sstep = "#Step size";
@@ -84,7 +85,7 @@ int main(){
     
     cfg << std::scientific << std::setprecision(3);
 
-    cfg  << sdur << "\nfinalTime = " << finalTime << "\n\n";
+    cfg  << sdur1 <<"\n" << sdur2 << "\nfinalTime = " << finalTime << "\n\n";
     cfg  << sstep << "\nt = " << t << "\n\n";
     cfg  << serr << "\nerr = " << err << "\n\n";
     cfg  << spar << "\ncharge = " << charge << "\nmass = " << mass << "\n\n";
