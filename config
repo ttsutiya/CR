@@ -1,5 +1,5 @@
 #Duration
-finalTime = 1.000e+07
+finalTime = 2.500e+07
 
 #Step size
 t = 1.000e-03

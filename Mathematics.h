@@ -1,7 +1,8 @@
 #include "Main.h"
 
 #define PI 3.141592654
-#define RAD2DEG (180./PI)
+#define RAD2DEG (180/PI)
+#define DEG2RAD (PI/180)
 
 double Max(double a, double b);
 double Min(double a, double b);

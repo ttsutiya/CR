@@ -4,8 +4,8 @@
 using namespace std;
 
 int main(){
-    int xp,yp;          xp = yp = 600;
-    double xd,yd;       xd = yd = 2;
+    int xp,yp;          xp = yp = 100;   //points
+    double xd,yd;       xd = yd = 1;    //distance points
     double xstart,ystart;
     vector<vector<double>> arr;
     double norm=0;
@@ -23,17 +23,17 @@ int main(){
             pos[0] = j;     
 
             double ro = sqrt( pow(pos[0],2) + pow(pos[1],2) );
-            double theta = -atan2(pos[1],pos[0]);
+            double theta = atan2(-pos[1],pos[0]);
             double Bsp, Zscale, Bro, Btheta;
 
             Bsp = ASSModel(ro,theta);
             Zscale = AModel(pos[2]);
 
-            Bro = Bsp * sin(ro) * Zscale;
-            Btheta = Bsp * cos(ro) * Zscale;
+            Bro = Bsp * sin(-10 * DEG2RAD) * Zscale;
+            Btheta = Bsp * cos(-10 * DEG2RAD) * Zscale;
 
             B[0] = Bro * cos(theta) - Btheta * sin(theta);
-            B[1] = Btheta * sin(theta) + Btheta * cos(theta);
+            B[1] = -(Bro * sin(theta) + Btheta * cos(theta));
             B[2] = 0;
 
             double mag = sqrt( pow(B[0],2) + pow(B[1],2) );
@@ -45,6 +45,10 @@ int main(){
             tmp.push_back(B[0]);
             tmp.push_back(B[1]);
 
+            tmp.push_back(Bro);
+            tmp.push_back(Btheta);
+            tmp.push_back(theta);
+
             arr.push_back(tmp);
         }
     }
@@ -54,7 +58,9 @@ int main(){
 
     for(int i = 0; i < arr.size(); i++){
         cout << arr[i][0] << " " << arr[i][1] << " "
-             << arr[i][2] / norm << " " << arr[i][3] / norm << endl;
+             << arr[i][2] / norm << " " << arr[i][3] / norm << " "
+             << arr[i][4] << " " << arr[i][5]  << " " 
+             << arr[i][6] * RAD2DEG << endl;
     }
 
     //cout << pos[0] << " " << pos[1] << " "

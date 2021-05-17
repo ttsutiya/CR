@@ -1,8 +1,10 @@
 #include "Main.h"
 
-const double C_LIGHT = 299792458;
-const double AU = 1.49598e11;
-const double PC = 2.06265e5;
+const double C_LIGHT = 299792458;   //meters
+const double AU = 1.49598e11;       //AU in meters
+const double PC = 2.06265e5;        //PC in AU
+const double unts = PC * AU;        //parsec to meters
+
 
 double PhysInit(double &finalTime, double &h, double &err, double &q, double &m,
         std::vector<double> &pos, std::vector<double> &v, std::vector<double> &B,
@@ -186,7 +188,7 @@ double MagneticField(const std::vector<double> &pos, std::vector<double> &B,
 
         case 4:{
             double ro = sqrt( pow(pos[0],2) + pow(pos[1],2) );
-            double theta = -atan2(pos[1],pos[0]);
+            double theta = atan2(-pos[1],pos[0]);
             double Bsp, Zscale, Bro, Btheta;
             
             Bsp = ASSModel(ro,theta);
@@ -196,14 +198,14 @@ double MagneticField(const std::vector<double> &pos, std::vector<double> &B,
             Btheta = Bsp * cos(ro) * Zscale;
 
             B[0] = Bro * cos(theta) - Btheta * sin(theta);
-            B[1] = Btheta * sin(theta) + Btheta * cos(theta);
+            B[1] = -( Bro * sin(theta) + Btheta * cos(theta) );
             B[2] = 0;
             break;
             }
 
         case 5:{
             double ro = sqrt( pow(pos[0],2) + pow(pos[1],2) );
-            double theta = -atan2(pos[1],pos[0]);
+            double theta = atan2(-pos[1],pos[0]);
             double Bsp, Zscale, Bro, Btheta;
             
             Bsp = BSSModel(ro,theta);
@@ -213,7 +215,7 @@ double MagneticField(const std::vector<double> &pos, std::vector<double> &B,
             Btheta = Bsp * cos(ro) * Zscale;
 
             B[0] = Bro * cos(theta) - Btheta * sin(theta);
-            B[1] = Btheta * sin(theta) + Btheta * cos(theta);
+            B[1] = -( Bro * sin(theta) + Btheta * cos(theta) );
             B[2] = 0;
             break;
             }
@@ -247,7 +249,6 @@ bool SimStop(const std::vector<double> B){
 }
 
 double RelativisticMass(double m, std::vector<double> v){
-
     double v_mod = sqrt( pow(v[0],2) + pow(v[1],2) + pow(v[2],2));
     std::cout << "% (v_mod / c) = " << 100*(v_mod/C_LIGHT) << std::endl;
     double gamma = 1 / (sqrt(1 - pow(v_mod,2) / pow(C_LIGHT,2)));
@@ -256,11 +257,9 @@ double RelativisticMass(double m, std::vector<double> v){
 }
 
 double ASSModel(double ro, double theta){
-    double unts = PC * AU;      //parsec to meters
-
     double xi = 10.55e3 * unts;
     double rnaught = 8.5e3 * unts;
-    double Bnaught = (3 * 8.5e3 * unts / ro) * pow( tanh(ro / 2 * unts),3 ) * 1e-10;
+    double Bnaught = (3 * rnaught / ro) * pow( tanh(ro / (2 * unts)),3 ) * 1e-10;
 
     double Bsp = Bnaught * pow( cos( theta - (-5.67) * log(ro/xi) ),2 );
 
@@ -268,11 +267,9 @@ double ASSModel(double ro, double theta){
 }
 
 double BSSModel(double ro, double theta){
-    double unts = PC * AU;      //parsec to meters
-
     double xi = 10.55e3 * unts;
     double rnaught = 8.5e3 * unts;
-    double Bnaught = (3 * 8.5e3 * unts / ro) * pow( tanh(ro / 2 * unts),3 ) * 1e-10;
+    double Bnaught = (3 * rnaught / ro) * pow( tanh(ro / (2 * unts)),3 ) * 1e-10;
 
     double Bsp = Bnaught * cos( theta - (-5.67) * log(ro/xi) );
 
@@ -280,8 +277,6 @@ double BSSModel(double ro, double theta){
 }
 
 double AModel(double z){
-    double unts = PC * AU;      //parsec to meters
-
     double z1 = 0.3e3 * unts;
     double z2 = 4e3 * unts;
     double z3 = 20 * unts;
