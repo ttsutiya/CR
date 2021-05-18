@@ -211,8 +211,8 @@ double MagneticField(const std::vector<double> &pos, std::vector<double> &B,
             Bsp = BSSModel(ro,theta);
             Zscale = AModel(pos[2]);
 
-            Bro = Bsp * sin(ro) * Zscale;
-            Btheta = Bsp * cos(ro) * Zscale;
+            Bro = Bsp * sin(-10 * DEG2RAD) * Zscale;
+            Btheta = Bsp * cos(-10 * DEG2RAD) * Zscale;
 
             B[0] = Bro * cos(theta) - Btheta * sin(theta);
             B[1] = -( Bro * sin(theta) + Btheta * cos(theta) );

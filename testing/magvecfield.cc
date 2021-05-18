@@ -15,6 +15,10 @@ int main(){
 
     vector<double> pos(3);      pos[2] = 1e19;
     vector<double> B(3);
+
+    int mode;
+//    cout << "Mode:" << endl << "ASS(1)" << endl << "BSS(2)" << endl;
+    cin >> mode;
     
     for(double i = ystart; i > -ystart; i-=yd){
         pos[1] = i;
@@ -26,16 +30,32 @@ int main(){
             double theta = atan2(-pos[1],pos[0]);
             double Bsp, Zscale, Bro, Btheta;
 
-            Bsp = ASSModel(ro,theta);
-            Zscale = AModel(pos[2]);
+            switch(mode){
+                case 0:{
+                    Bsp = ASSModel(ro,theta);
+                    Zscale = AModel(pos[2]);
 
-            Bro = Bsp * sin(-10 * DEG2RAD) * Zscale;
-            Btheta = Bsp * cos(-10 * DEG2RAD) * Zscale;
+                    Bro = Bsp * sin(-10 * DEG2RAD) * Zscale;
+                    Btheta = Bsp * cos(-10 * DEG2RAD) * Zscale;
 
-            B[0] = Bro * cos(theta) - Btheta * sin(theta);
-            B[1] = -(Bro * sin(theta) + Btheta * cos(theta));
-            B[2] = 0;
+                    B[0] = Bro * cos(theta) - Btheta * sin(theta);
+                    B[1] = -(Bro * sin(theta) + Btheta * cos(theta));
+                    B[2] = 0;
+                    break;
+                }
+                case 1:{
+                    Bsp = BSSModel(ro,theta);
+                    Zscale = AModel(pos[2]);
 
+                    Bro = Bsp * sin(-10 * DEG2RAD) * Zscale;
+                    Btheta = Bsp * cos(-10 * DEG2RAD) * Zscale;
+
+                    B[0] = Bro * cos(theta) - Btheta * sin(theta);
+                    B[1] = -( Bro * sin(theta) + Btheta * cos(theta) );
+                    B[2] = 0;
+                    break;
+                }
+            }
             double mag = sqrt( pow(B[0],2) + pow(B[1],2) );
             if(mag > norm) norm = mag;
 
