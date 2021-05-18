@@ -7,22 +7,31 @@ using namespace std;
 
 //Random generate position of the particle inside 
 //the top dome of a sphere of radius 52850 LY ~ 5e20 m
-void RandPos(double &posx, double &posy, double &posz){
+void RandPos(double &posx, double &posy, double &posz, double &theta, double &phi){
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();
     default_random_engine generator (seed); 
 
     uniform_real_distribution<double> randtheta(0,PI/2);
-    double theta = randtheta(generator);
+    theta = randtheta(generator);
      
     uniform_real_distribution<double> randphi(0,2*PI);
-    double phi = randphi(generator);
+    phi = randphi(generator);
 
-    cout << "theta = " << theta << endl << "phi = " << phi << endl;
+    cout << "theta[deg] = " << theta * RAD2DEG << endl 
+         << "phi[deg] = " << phi * RAD2DEG << endl;
     double r = 5e20;
 
     posx = r * sin(theta) * cos(phi);
     posy = r * sin(theta) * sin(phi);
     posz = r * cos(theta);
+}
+void RandVel(double &velx, double &vely, double &velz,
+             const double &theta, const double &phi){
+    const double velMod = 2.5e8;
+
+    velx = -( velMod * sin(theta) * cos(phi) );
+    vely = -( velMod * sin(theta) * sin(phi) );
+    velz = -( velMod * cos(theta) );
 }
 
 int main(){
@@ -42,16 +51,12 @@ int main(){
 
     string spos = "#Initial position";
     double posx, posy, posz;
-//    posx = 1e5;
-//    posy = 1e5;
-//    posz = 1e5;
-    RandPos(posx,posy,posz);
+    double theta, phi;
+    RandPos(posx,posy,posz,theta,phi);
 
     string svel = "#Initial velocity";
     double velx, vely, velz;
-    velx = 1e3;
-    vely = 1e3;
-    velz = 1e4;
+    RandVel(velx,vely,velz,theta,phi);
 
     string smag = "#Constant magnetic field (mode 0/1/2)";
     double magfieldx, magfieldy, magfieldz;
@@ -84,11 +89,12 @@ int main(){
     ofstream cfg("config");
     
     cfg << std::scientific << std::setprecision(3);
-
     cfg  << sdur1 <<"\n" << sdur2 << "\nfinalTime = " << finalTime << "\n\n";
     cfg  << sstep << "\nt = " << t << "\n\n";
     cfg  << serr << "\nerr = " << err << "\n\n";
     cfg  << spar << "\ncharge = " << charge << "\nmass = " << mass << "\n\n";
+
+    cfg << std::scientific << std::setprecision(10);
     cfg  << spos << "\npos(x) = " << posx 
                  << "\npos(y) = " << posy
                  << "\npos(z) = " << posz << "\n\n";

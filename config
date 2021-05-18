@@ -1,6 +1,6 @@
 #Duration
 # 0 -> no time limit
-finalTime = 1.000e+10
+finalTime = 1.000e+07
 
 #Step size
 t = 1.000e-03
@@ -13,22 +13,22 @@ charge = 1.600e-19
 mass = 1.670e-27
 
 #Initial position
-pos(x) = 3.005e+20
-pos(y) = 2.601e+20
-pos(z) = 3.034e+20
+pos(x) = 1.4034753532e+20
+pos(y) = -6.2512038121e+19
+pos(z) = 4.7580964095e+20
 
 #Initial velocity
-vel(x) = 1.000e+03
-vel(y) = 1.000e+03
-vel(z) = 1.000e+04
+vel(x) = -7.0173767658e+07
+vel(y) = 3.1256019061e+07
+vel(z) = -2.3790482047e+08
 
 #Constant magnetic field (mode 0/1/2)
-magfield(x) = 0.000e+00
-magfield(y) = 0.000e+00
-magfield(z) = 0.000e+00
+magfield(x) = 0.0000000000e+00
+magfield(y) = 0.0000000000e+00
+magfield(z) = 0.0000000000e+00
 
 #B_0 used in the dipole field (mode 3)
-intialB = 7.000e+08
+intialB = 7.0000000000e+08
 
 #   0 - constant
 #   1 - 1/r

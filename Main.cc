@@ -144,8 +144,8 @@ int main(){
         magfield.push_back(temp);
 
         for(int i = 0; i < 3; i++){             //check for new max/min values
-            maxValues[i] = Max(maxValues[i],pos[i]);
-            minValues[i] = Min(minValues[i],pos[i]);
+            maxValues[i] = std::max(maxValues[i],pos[i]);
+            minValues[i] = std::min(minValues[i],pos[i]);
         }
 
         bool breakFlag = false;
@@ -153,7 +153,7 @@ int main(){
             switch(stopFlag){
                 case 1:{                        //Stop based on the magfield
                     if(SimStop(B)){
-                        std::cout << "SimStop Triggered Mode(1)" << std::endl;
+                        std::cout << "SimStop B too low" << std::endl;
                         breakFlag = true;
                     }
                     break;
@@ -163,7 +163,11 @@ int main(){
                     if( pos0[2] >= 0 && pos[2] < 0 ||
                         pos0[2] <= 0 && pos[2] > 0 ){
 
-                        std::cout << "SimStop Triggered Mode(2)" << std::endl;
+                        std::cout << "SimStop Z = 0" << std::endl;
+                        breakFlag = true;
+                    }
+                    if( VecMod(pos) > 5e20 * 1.001 ){   //5e20 * 1.01 -> 1% of the raius
+                        std::cout << "SimStop out of bound" << std::endl;
                         breakFlag = true;
                     }
                     break;

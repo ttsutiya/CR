@@ -4,8 +4,6 @@
 #define RAD2DEG (180/PI)
 #define DEG2RAD (PI/180)
 
-double Max(double a, double b);
-double Min(double a, double b);
 double VecMod(const std::vector<double> &vec);
 double CrossProduct(std::vector<double> &c, const std::vector<double> &a,
         const std::vector<double> &b);
@@ -14,30 +12,6 @@ double VecAngle(const std::vector<double> &pos0, const std::vector<double> &pos)
 double Decomposition(const std::vector<double> &v, const std::vector<double> &B,
         std::vector<double> &v_par, std::vector<double> &v_per);
 double AbsDistance(const std::vector<double> &pos);
-
-double Max(double a, double b){
-    double max;
-
-    if(a > b){
-        max = a;
-    }else{
-        max = b;
-    }
-
-    return max;
-}
-
-double Min(double a, double b){
-    double min;
-
-    if(a > b){
-        min = b;
-    }else{
-        min = a;
-    }
-
-    return min;
-}
 
 double VecMod(const std::vector<double> &vec){
         double mod;
