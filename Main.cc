@@ -166,7 +166,7 @@ int main(){
                         std::cout << "SimStop Z = 0" << std::endl;
                         breakFlag = true;
                     }
-                    if( VecMod(pos) > 5e20 * 1.001 ){   //5e20 * 1.01 -> 1% of the raius
+                    if( VecMod(pos) > 5e20 * 1.001 ){   //5e20 * 1.001 -> 0.1% of the raius
                         std::cout << "SimStop out of bound" << std::endl;
                         breakFlag = true;
                     }
