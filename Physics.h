@@ -32,7 +32,7 @@ double PhysInit(double &finalTime, double &h, double &err, double &q, double &m,
     if(!config.is_open()){
         std::cerr << "Couldn't open config file." << std::endl;
 
-        exit;
+        exit(EXIT_FAILURE);
     }else{
 
         std::string line;
