@@ -192,7 +192,7 @@ int main(){
     printRad(timeStamp, radius);
     printFreq(timeStamp, frequency);
     printMag(timeStamp, magfield);
-    printRadAngle(pos0, pos, posOut);
+    printMisc(pos0, pos, posOut);
 
     return 0;
 }
