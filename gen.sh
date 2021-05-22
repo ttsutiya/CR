@@ -19,13 +19,13 @@ do
     mv data/magfield.dat     data/magfield_$N.dat
     mv data/pos.dat          data/pos_$N.dat
     mv data/rad.dat          data/rad_$N.dat
-    mv data/radangle.dat     data/radangle_$N.dat
+    mv data/misc.dat         data/misc_$N.dat
 
     mv data/frequency_$N.dat data/freq
     mv data/magfield_$N.dat  data/mag
     mv data/pos_$N.dat       data/pos
     mv data/rad_$N.dat       data/rad
-    mv data/radangle_$N.dat  data/radangle
+    mv data/misc_$N.dat  data/misc
     
 done
 

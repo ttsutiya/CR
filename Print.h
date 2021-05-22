@@ -75,11 +75,23 @@ void printMag(const std::vector<double> &timeStamp,
     mag.close();
 }
 
-void printRadAngle(const std::vector<double> &pos0, const std::vector<double> &pos){
-    std::ofstream ra("data/radangle.dat");
+void printRadAngle(const std::vector<double> &pos0, const std::vector<double> &pos, const std::vector<std::vector<double>> &posOut){
+    std::ofstream misc("data/misc.dat");
 
     double radius = sqrt( pow(pos[0],2) + pow(pos[1],2) );
     double angle = VecAngle(pos0,pos); 
 
-    ra << angle << " " << radius << std::endl;
+    double path = 0;
+
+    for(int i = 1; i < posOut.size(); i++){
+        std::vector<double> vec_diff(3);
+        
+        for(int j = 0; j < 3; j++){
+            vec_diff[j] = posOut[i][j] - posOut[i-1][j];
+        }
+
+        path += VecMod(vec_diff);
+    }
+
+    misc << angle << " " << radius << " " << path << std::endl;
 }
