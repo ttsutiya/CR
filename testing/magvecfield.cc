@@ -17,7 +17,7 @@ int main(){
     vector<double> B(3);
 
     int mode;
-//    cout << "Mode:" << endl << "ASS(1)" << endl << "BSS(2)" << endl;
+//    cout << "Mode:" << endl << "ASS(0)" << endl << "BSS(1)" << endl;
     cin >> mode;
     
     for(double i = ystart; i > -ystart; i-=yd){

@@ -11,21 +11,25 @@ fi
 for ((N=1; N<=3; N++))
 do
     ./genconfig
-    ./CR
-    mv config config_$N
-    mv config_$N data/cfg
 
-    mv data/frequency.dat    data/frequency_$N.dat
-    mv data/magfield.dat     data/magfield_$N.dat
-    mv data/pos.dat          data/pos_$N.dat
-    mv data/rad.dat          data/rad_$N.dat
-    mv data/misc.dat         data/misc_$N.dat
+    if ./CR
+    then
+        mv config config_$N
+        mv config_$N data/cfg
 
-    mv data/frequency_$N.dat data/freq
-    mv data/magfield_$N.dat  data/mag
-    mv data/pos_$N.dat       data/pos
-    mv data/rad_$N.dat       data/rad
-    mv data/misc_$N.dat  data/misc
-    
+        mv data/frequency.dat    data/frequency_$N.dat
+        mv data/magfield.dat     data/magfield_$N.dat
+        mv data/pos.dat          data/pos_$N.dat
+        mv data/rad.dat          data/rad_$N.dat
+        mv data/misc.dat         data/misc_$N.dat
+
+        mv data/frequency_$N.dat data/freq
+        mv data/magfield_$N.dat  data/mag
+        mv data/pos_$N.dat       data/pos
+        mv data/rad_$N.dat       data/rad
+        mv data/misc_$N.dat  data/misc
+    else
+        N--
+    fi
 done
 
