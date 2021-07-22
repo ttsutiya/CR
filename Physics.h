@@ -251,6 +251,9 @@ bool SimStop(const std::vector<double> B){
 double RelativisticMass(double m, std::vector<double> v){
     double v_mod = sqrt( pow(v[0],2) + pow(v[1],2) + pow(v[2],2));
     std::cout << "% (v_mod / c) = " << 100*(v_mod/C_LIGHT) << std::endl;
+    std::cout << std::setprecision(16);
+    std::cout << "v_mod = " << v_mod << std::endl;
+
     double gamma = 1 / (sqrt(1 - pow(v_mod,2) / pow(C_LIGHT,2)));
 
     return m*gamma;

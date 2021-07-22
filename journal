@@ -1,0 +1,96 @@
+#Questions
+Having trouble calculating E from the v_max.
+E is being less than 1 for some reason. I expected something higuer...
+
+c^2 ~ 10^16
+m ~ 10^-27
+
+That's why E is small.
+
+Not sure if E in Gev/Mev would be would be for kinetic energy only or maybe I 
+need higher velocities, meaning 299792457.9999999 is not high enough.
+
+#20/07/21
+
+#22:28
+
+Found that the max velocity that double can handle is 
+            299792457.9999999
+which is exactly 16 significant digits, so it was a waste of time to search 
+for it manually. I should have know that.
+
+The problem is if I put the max velocity into the genconfig.sh the
+relativistic mass will exceed the max number that double can handle.
+So the problem is not the max velocity but the max value of the rest mass.
+
+Next task need to find the max velocity that will generate a relativistic
+mass that double can handle.
+
+#23:12
+
+Looks like that the relativistic mass does not fail consistently, sometimes
+the mass is fine, but other times mass = -nan.
+
+#22/07/21
+#09:37
+
+The problem was that v_mod was bigger than c. Probably because of small errors 
+the lowest decimals after the conversion to Cartesian.
+
+The process that generated the error is due to this:
+v_max -> cartesian -> (v_mod (calculate relativistic mass) > c)
+
+v_mod = 299792458.0006545
+
+I will try to fix it by decreasing a v_max a little bit.
+
+#09:51
+Now, its seen kinda strange that the value v_mod would be greater than v_max.
+
+If for example, I decompose a vector of value 1 at 45 degrees from the x-axis
+I get sqrt(2)/2 for both vectors x and y. If I would to lose precision on 
+this value, and try to get my original vector back, it should be less than
+the original.
+
+sqrt(2)/2 ~= 0.707... -> 0.7
+
+sqrt( 2 * (0.7)^2) ~= 0.9899...
+
+I will check the values of the decomposition in the genconfig.
+
+#09:59
+Thinking about it, the only way that the values could get wrong is if
+the value is being rounded up.
+
+sqrt(2)/2 ~= 0.707... -> 0.71
+
+sqrt( 2 * (0.71)^2) ~= 1.00409...
+
+#10:33
+The best approach might be give the v_mod used in the genconfig to the program
+instead of the programs trying to reconstruct v_mod from its decomposed vectors.
+I say its the best approach because v_mod to the decomposed form will produce
+16 significant figure decomposed vectors, while the reconstruction would require
+more digits to give the original v_mod.
+
+So what I am thinking of doing is set a new flag in the config file so that 
+I can choose whether I want to give a set of velocity values to the program or
+the velocities is actually a v_mod decomposed.
+
+#11:04
+Well, I am dumb. 
+The decomposed v_mod is actually being truncated. The problem is that because I set
+
+std:setprecision(10)
+
+in the genconfig the last 6 digits was not being printed. So sometimes the 10th digit
+would be rounded off depending on the 11th digit. Consequently v_mod could be greater
+when reconstructed. 
+
+With precision set to the 16th digit I could not reproduce the error anymore, and I don't
+think its possible anymore.
+
+#11:21
+A quick test show that sometimes the trajectory go out of bounds. I need to program a way
+to differentiate the simulations stops, so that I can deal only with z=0.
+

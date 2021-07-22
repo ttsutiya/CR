@@ -5,6 +5,8 @@
 
 using namespace std;
 
+const double velMod = 299792457.9999999;
+
 //Random generate position of the particle inside 
 //the top dome of a sphere of radius 52850 LY ~ 5e20 m
 void Rand(double &theta, double &phi){
@@ -46,13 +48,7 @@ void TransSpheCart(vector<double> &v, const double &theta, const double &phi){
     v[2] = vx * cos(theta) - vy * sin(theta);
 }
 
-void RandVel(vector<double> &v, const double &theta, const double &phi){
-    const double velMod = 2.5e8;
-
-//    velx = -( velMod * sin(theta) * cos(phi) );
-//    vely = -( velMod * sin(theta) * sin(phi) );
-//    velz = -( velMod * cos(theta) );
-    
+void RandVel(const double &vMod, vector<double> &v, const double &theta, const double &phi){
     double theta_r, phi_r;
     Rand(theta_r,phi_r);
 
@@ -64,8 +60,7 @@ void RandVel(vector<double> &v, const double &theta, const double &phi){
     }
 }
 
-void CentVel(vector<double> &v, const double &theta, const double &phi){
-    const double velMod = 2.5e8;
+void CentVel(const double &vMod, vector<double> &v, const double &theta, const double &phi){
 
     v[0] = -( velMod * sin(theta) * cos(phi) );
     v[1] = -( velMod * sin(theta) * sin(phi) );
@@ -95,8 +90,8 @@ int main(){
 
     string svel = "#Initial velocity";
     vector<double> v(3);
-    //RandVel(v,theta,phi);
-    CentVel(v,theta,phi);
+    RandVel(velMod,v,theta,phi);
+    //CentVel(v,theta,phi);
 
     string smag = "#Constant magnetic field (mode 0/1/2)";
     double magfieldx, magfieldy, magfieldz;
@@ -129,25 +124,25 @@ int main(){
     ofstream cfg("config");
     
     cfg << std::scientific << std::setprecision(3);
-    cfg  << sdur1 <<"\n" << sdur2 << "\nfinalTime = " << finalTime << "\n\n";
-    cfg  << sstep << "\nt = " << t << "\n\n";
-    cfg  << serr << "\nerr = " << err << "\n\n";
-    cfg  << spar << "\ncharge = " << charge << "\nmass = " << mass << "\n\n";
+    cfg << sdur1 <<"\n" << sdur2 << "\nfinalTime = " << finalTime << "\n\n";
+    cfg << sstep << "\nt = " << t << "\n\n";
+    cfg << serr << "\nerr = " << err << "\n\n";
+    cfg << spar << "\ncharge = " << charge << "\nmass = " << mass << "\n\n";
 
-    cfg << std::scientific << std::setprecision(10);
-    cfg  << spos << "\npos(x) = " << pos[0] 
+    cfg << std::scientific << std::setprecision(16);
+    cfg << spos << "\npos(x) = " << pos[0] 
                  << "\npos(y) = " << pos[1]
                  << "\npos(z) = " << pos[2] << "\n\n";
-    cfg  << svel << "\nvel(x) = " << v[0] 
+    cfg << svel << "\nvel(x) = " << v[0] 
                  << "\nvel(y) = " << v[1] 
                  << "\nvel(z) = " << v[2] << "\n\n";
-    cfg  << smag << "\nmagfield(x) = " << magfieldx 
+    cfg << smag << "\nmagfield(x) = " << magfieldx 
                  << "\nmagfield(y) = " << magfieldy
                  << "\nmagfield(z) = " << magfieldz << "\n\n";
-    cfg  << sinit << "\nintialB = " << initialB << "\n\n";
-    cfg  << smode << "\nmode = " << mode << "\n\n";
-    cfg  << sadap << "\nadapFlag = " << adapFlag << "\n\n";
-    cfg  << sstop << "\nsimStop = " << simStop << "\n\n";
+    cfg << sinit << "\nintialB = " << initialB << "\n\n";
+    cfg << smode << "\nmode = " << mode << "\n\n";
+    cfg << sadap << "\nadapFlag = " << adapFlag << "\n\n";
+    cfg << sstop << "\nsimStop = " << simStop << "\n\n";
 
     cfg.close();
 }

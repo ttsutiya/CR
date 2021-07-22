@@ -13,22 +13,22 @@ charge = 1.600e-19
 mass = 1.670e-27
 
 #Initial position
-pos(x) = 1.1382522233e+19
-pos(y) = 4.9912339516e+20
-pos(z) = 2.7318026901e+19
+pos(x) = 2.4941390994803199e+20
+pos(y) = 3.2567943593803586e+20
+pos(z) = 2.8587690800678145e+20
 
 #Initial velocity
-vel(x) = -5.6912611166e+06
-vel(y) = -2.4956169758e+08
-vel(z) = -1.3659013451e+07
+vel(x) = -2.2798082594953579e+08
+vel(y) = -1.0590682803091016e+08
+vel(z) = 1.6335239407330513e+08
 
 #Constant magnetic field (mode 0/1/2)
-magfield(x) = 0.0000000000e+00
-magfield(y) = 0.0000000000e+00
-magfield(z) = 0.0000000000e+00
+magfield(x) = 0.0000000000000000e+00
+magfield(y) = 0.0000000000000000e+00
+magfield(z) = 0.0000000000000000e+00
 
 #B_0 used in the dipole field (mode 3)
-intialB = 7.0000000000e+08
+intialB = 7.0000000000000000e+08
 
 #   0 - constant
 #   1 - 1/r
@@ -46,4 +46,9 @@ adapFlag = 1
 #   1 - Magnitude
 #   2 - Z=0
 simStop = 2
+
+#Use velMod
+#   0 - Disabled
+#   1 - Enabled
+useVelMod = 1
 

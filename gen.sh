@@ -8,7 +8,7 @@ then
     exit;
 fi
 
-for ((N=1; N<=3; N++))
+for ((N=1; N<=2; N++))
 do
     ./genconfig
 
