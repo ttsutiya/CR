@@ -1,7 +1,8 @@
 void PlotX(){
 
-    ifstream in("data/pos.dat");
-
+    ifstream in("pos.dat");
+    //ifstream in("../data/pos/pos_1.dat");
+    
     TCanvas *c5 = new TCanvas("c5", "x");
 
     //c1 -> SetFillColor();

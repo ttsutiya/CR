@@ -1,6 +1,7 @@
 void PlotFrequency(){
 
-    ifstream in("data/frequency.dat");
+    ifstream in("frequency.dat");
+    //ifstream in("../data/freq/frequency.dat");
 
     TCanvas *c3 = new TCanvas("c3", "Frequency");
 

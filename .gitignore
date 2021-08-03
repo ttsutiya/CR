@@ -1,3 +1,6 @@
 *.dat
 CR
 genconfig
+data/*
+journal
+config

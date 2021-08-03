@@ -4,7 +4,7 @@ void printPos(const std::vector<double> &timeStamp, const std::vector<double> &m
         const std::vector<double> &minValues, 
             const std::vector<std::vector<double> > &posOut){
     std::cout << "Print Pos" << std::endl;
-    std::ofstream pos("data/pos.dat");                   //N
+    std::ofstream pos("pos.dat");                   //N
                                                     //Max x Max y Max z Min x Min y Min z
                                                     //time x y z 
     pos << posOut.size() << std::endl;
@@ -35,7 +35,7 @@ void printPos(const std::vector<double> &timeStamp, const std::vector<double> &m
 void printRad(const std::vector<double> &timeStamp,
               const std::vector<double> radius){
     std::cout << "Print Rad" << std::endl;
-    std::ofstream rad("data/rad.dat");
+    std::ofstream rad("rad.dat");
     
     rad << radius.size() << std::endl;
     rad << std::scientific << std::setprecision(10);
@@ -50,7 +50,7 @@ void printRad(const std::vector<double> &timeStamp,
 void printFreq(const std::vector<double> &timeStamp,
                const std::vector<double> &frequency){
     std::cout << "Print Freq" << std::endl;
-    std::ofstream freq("data/frequency.dat");
+    std::ofstream freq("frequency.dat");
 
     freq << frequency.size() << std::endl;
     freq << std::scientific << std::setprecision(10);
@@ -65,7 +65,7 @@ void printFreq(const std::vector<double> &timeStamp,
 void printMag(const std::vector<double> &timeStamp,
               const std::vector<std::vector<double> > &magfield){
     std::cout << "Print Mag" << std::endl;
-    std::ofstream mag("data/magfield.dat");
+    std::ofstream mag("magfield.dat");
 
     mag << magfield.size() << std::endl;
     mag << std::scientific << std::setprecision(10);
@@ -81,7 +81,7 @@ void printMag(const std::vector<double> &timeStamp,
 
 void printMisc(const std::vector<double> &pos0, const std::vector<double> &pos, const std::vector<std::vector<double>> &posOut){
     std::cout << "Print Misc" << std::endl;
-    std::ofstream misc("data/misc.dat");
+    std::ofstream misc("misc.dat");
 
     double radius = sqrt( pow(pos[0],2) + pow(pos[1],2) );
     double angle = VecAngle(pos0,pos); 

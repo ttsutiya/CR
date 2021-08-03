@@ -1,6 +1,7 @@
 void PlotRadius(){
 
-    ifstream in("data/rad.dat");
+    ifstream in("rad.dat");
+    //ifstream in("../data/rad/rad.dat");
 
     TCanvas *c4 = new TCanvas("c4", "Gyroradius");
 

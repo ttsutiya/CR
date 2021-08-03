@@ -1,6 +1,7 @@
 void PlotY(){
 
-    ifstream in("data/pos.dat");
+    ifstream in("pos.dat");
+    //ifstream in("../data/pos/pos_1.dat");
 
     TCanvas *c6 = new TCanvas("c6", "y");
 

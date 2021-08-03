@@ -1,6 +1,6 @@
 #! /bin/bash
 
-rm data/*.dat 2> /dev/null
+#rm data/*.dat 2> /dev/null
 
 if ! g++ genconfig.cc -o genconfig
 then
@@ -8,28 +8,34 @@ then
     exit;
 fi
 
-for ((N=1; N<=2; N++))
+if ! g++ Main.cc -o CR
+then
+    echo "Compiling error exiting script"
+    exit;
+fi
+
+for ((N=1; N<=1000; N++))
 do
     ./genconfig
 
     if ./CR
     then
-        mv config config_$N
-        mv config_$N data/cfg
+        mv config           config_$N
+        mv frequency.dat    frequency_$N.dat
+        mv magfield.dat     magfield_$N.dat
+        mv pos.dat          pos_$N.dat
+        mv rad.dat          rad_$N.dat
+        mv misc.dat         misc_$N.dat
 
-        mv data/frequency.dat    data/frequency_$N.dat
-        mv data/magfield.dat     data/magfield_$N.dat
-        mv data/pos.dat          data/pos_$N.dat
-        mv data/rad.dat          data/rad_$N.dat
-        mv data/misc.dat         data/misc_$N.dat
-
-        mv data/frequency_$N.dat data/freq
-        mv data/magfield_$N.dat  data/mag
-        mv data/pos_$N.dat       data/pos
-        mv data/rad_$N.dat       data/rad
-        mv data/misc_$N.dat  data/misc
+        mv config_$N        data/cfg
+        mv frequency_$N.dat data/freq
+        mv magfield_$N.dat  data/mag
+        mv pos_$N.dat       data/pos
+        mv rad_$N.dat       data/rad
+        mv misc_$N.dat      data/misc
+        echo "$N"
     else
-        N--
+        ((N--))
+        echo "$N"
     fi
 done
-

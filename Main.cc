@@ -111,7 +111,8 @@ int main(){
                         radius.resize(radius.size()-2);
                         frequency.resize(frequency.size()-2);
                         magfield.resize(magfield.size()-2);
-                            cout << "adap trig" << endl;
+
+                        //std::cout << "adap trig" << endl;
                         continue;
 
                     default:
@@ -149,7 +150,7 @@ int main(){
         }
 
         bool breakFlag = false;
-        if(stopFlag != 0){
+        if(stopFlag != 0 && adapCounter == 0){
             switch(stopFlag){
                 case 1:{                        //Stop based on the magfield
                     if(SimStop(B)){
@@ -168,20 +169,22 @@ int main(){
                     }
                     if( VecMod(pos) > 5e20 * 1.001 ){   //5e20 * 1.001 -> 0.1% of the raius
                         std::cout << "SimStop out of bound" << std::endl;
-                        breakFlag = true;
+                        //breakFlag = true;
+                        return 1;
                     }
                     break;
                 }
 
             }
         }
-        if(breakFlag){
-            break;
-        }
 
         time += h;
         timeStamp.push_back(time);
-        cout << "time = " << time << endl;
+        //std::cout << "time = " << time << endl;
+
+        if(breakFlag){
+            break;
+        }
     }
 
 //#############################################################################
