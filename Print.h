@@ -79,12 +79,9 @@ void printMag(const std::vector<double> &timeStamp,
     mag.close();
 }
 
-void printMisc(const std::vector<double> &pos0, const std::vector<double> &pos, const std::vector<std::vector<double>> &posOut){
+void printMisc(double &phi, double &theta, const std::vector<double> &pos0, const std::vector<double> &pos, const std::vector<std::vector<double>> &posOut){
     std::cout << "Print Misc" << std::endl;
     std::ofstream misc("misc.dat");
-
-    double radius = sqrt( pow(pos[0],2) + pow(pos[1],2) );
-    double angle = VecAngle(pos0,pos); 
 
     double path = 0;
 
@@ -98,5 +95,8 @@ void printMisc(const std::vector<double> &pos0, const std::vector<double> &pos, 
         path += VecMod(vec_diff);
     }
 
-    misc << angle << " " << radius << " " << path << std::endl;
+    misc << path << " " 
+         << phi << " " << theta << " "
+         << pos0[0] << " " << pos0[1] << " " << pos0[3] << " "
+         << posOut[posOut.size()-1][0] << " " << posOut[posOut.size()-1][1] << " " << posOut[posOut.size()-1][3] << " " << std::endl;
 }

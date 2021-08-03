@@ -9,14 +9,14 @@ int main(){
     std::cout << "***COSMIC RAYS***\n\n";
 
     double finalTime, h, h0, err;
-    bool adapFlag;
+    bool adapFlag, pPosFlag, pRadFlag, pFreqFlag, pMagFlag, pMiscFlag;
 
-    double q, m, initialB;
+    double q, m, phi, theta, initialB;
     int mode, stopFlag;
 
     std::vector<double> pos(3), v(3), B(3);
 
-    PhysInit(finalTime,h,err,q,m,pos,v,B,initialB,mode,adapFlag,stopFlag);  //Get initial values from config file
+    PhysInit(finalTime,h,err,q,m,phi,theta,pos,v,B,initialB,mode,adapFlag,stopFlag,pPosFlag,pRadFlag,pFreqFlag,pMagFlag,pMiscFlag);  //Get initial values from config file
 
 //#############################################################################
     // Saves the starting values for future use
@@ -191,11 +191,11 @@ int main(){
 //                      Print values to .dat files
 //#############################################################################
 
-    printPos(timeStamp, maxValues, minValues, posOut);
-    printRad(timeStamp, radius);
-    printFreq(timeStamp, frequency);
-    printMag(timeStamp, magfield);
-    printMisc(pos0, pos, posOut);
+    if(pPosFlag)    printPos(timeStamp, maxValues, minValues, posOut);
+    if(pRadFlag)    printRad(timeStamp, radius);
+    if(pFreqFlag)   printFreq(timeStamp, frequency);
+    if(pMagFlag)    printMag(timeStamp, magfield);
+    if(pMiscFlag)   printMisc(phi, theta, pos0, pos, posOut);
 
     return 0;
 }

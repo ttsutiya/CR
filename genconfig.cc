@@ -23,8 +23,8 @@ void Rand(double &theta, double &phi){
 void RandPos(vector<double> &pos, double &theta, double &phi){
     Rand(theta,phi);
 
-    cout << "theta[deg] = " << theta * RAD2DEG << endl 
-         << "phi[deg] = " << phi * RAD2DEG << endl;
+    cout << "phi[deg] = " << phi * RAD2DEG << endl
+         << "theta[deg] = " << theta * RAD2DEG << endl;
     double r = 5e20;
 
     pos[0] = r * sin(theta) * cos(phi);
@@ -83,6 +83,8 @@ int main(){
     double charge = 1.6e-19;
     double mass = 1.67e-27;
 
+
+    string sangles = "#Origin Angles";
     string spos = "#Initial position";
     vector<double> pos(3);
     double theta, phi;
@@ -114,10 +116,19 @@ int main(){
     int adapFlag = 1;
     
     string sstop = "#Stop simulation\n"
-                    "#   0 - Disabled\n"
-                    "#   1 - Magnitude\n"
-                    "#   2 - Z=0";
+                    "#  0 - Disabled\n"
+                    "#  1 - Magnitude\n"
+                    "#  2 - Z=0";
     int simStop = 2;
+
+    string sprint = "#Print to file\n"
+                    "#  0 - Disabled\n"
+                    "#  1 - Enabled";
+    int printPos    = 0;
+    int printRad    = 0;
+    int printFreq   = 0;
+    int printMag    = 0;
+    int printMisc   = 1;
 
 //############################################################
 
@@ -128,6 +139,10 @@ int main(){
     cfg << sstep << "\nt = " << t << "\n\n";
     cfg << serr << "\nerr = " << err << "\n\n";
     cfg << spar << "\ncharge = " << charge << "\nmass = " << mass << "\n\n";
+
+    cfg << std::fixed << std::setprecision(7);
+    cfg << sangles << "\nphi[deg] = " << phi * RAD2DEG
+                    <<"\ntheta[deg] = " << theta * RAD2DEG << "\n\n";
 
     cfg << std::scientific << std::setprecision(16);
     cfg << spos << "\npos(x) = " << pos[0] 
@@ -143,6 +158,11 @@ int main(){
     cfg << smode << "\nmode = " << mode << "\n\n";
     cfg << sadap << "\nadapFlag = " << adapFlag << "\n\n";
     cfg << sstop << "\nsimStop = " << simStop << "\n\n";
+    cfg << sprint << "\nprintPos  = " << printPos
+                  << "\nprintRad  = " << printRad
+                  << "\nprintFreq = " << printFreq
+                  << "\nprintMag  = " << printMag
+                  << "\nprintMisc = " << printMisc << "\n\n";
 
     cfg.close();
 }
