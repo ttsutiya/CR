@@ -23,8 +23,8 @@ void Rand(double &theta, double &phi){
 void RandPos(vector<double> &pos, double &theta, double &phi){
     Rand(theta,phi);
 
-    cout << "phi[deg] = " << phi * RAD2DEG << endl
-         << "theta[deg] = " << theta * RAD2DEG << endl;
+    cout << "phi_p[deg] = " << phi * RAD2DEG << endl
+         << "theta_p[deg] = " << theta * RAD2DEG << endl;
     double r = 5e20;
 
     pos[0] = r * sin(theta) * cos(phi);
@@ -48,11 +48,13 @@ void TransSpheCart(vector<double> &v, const double &theta, const double &phi){
     v[2] = vx * cos(theta) - vy * sin(theta);
 }
 
-void RandVel(const double &vMod, vector<double> &v, const double &theta, const double &phi){
-    double theta_r, phi_r;
-    Rand(theta_r,phi_r);
+void RandVel(const double &vMod, vector<double> &v, const double &theta, const double &phi, double &theta_v, double &phi_v){
+    Rand(theta_v,phi_v);
 
-    TransSpheHem(velMod, theta_r, phi_r, v);
+    cout << "phi_v[deg] = " << phi_v * RAD2DEG << endl
+         << "theta_v[deg] = " << theta_v * RAD2DEG << endl;
+
+    TransSpheHem(velMod, theta_v, phi_v, v);
     TransSpheCart(v,theta,phi);
 
     for(auto &i : v){
@@ -84,16 +86,17 @@ int main(){
     double mass = 1.67e-27;
 
 
-    string sangles = "#Origin Angles";
+    string sangles_p = "#Origin Angles";
     string spos = "#Initial position";
     vector<double> pos(3);
-    double theta, phi;
-    RandPos(pos,theta,phi);
+    double theta_p, phi_p;
+    RandPos(pos,theta_p,phi_p);
 
+    string sangles_v = "#Velocity Angles";
     string svel = "#Initial velocity";
     vector<double> v(3);
-    RandVel(velMod,v,theta,phi);
-    //CentVel(v,theta,phi);
+    double theta_v, phi_v;
+    RandVel(velMod,v,theta_p,phi_p,theta_v,phi_v);
 
     string smag = "#Constant magnetic field (mode 0/1/2)";
     double magfieldx, magfieldy, magfieldz;
@@ -141,8 +144,10 @@ int main(){
     cfg << spar << "\ncharge = " << charge << "\nmass = " << mass << "\n\n";
 
     cfg << std::fixed << std::setprecision(7);
-    cfg << sangles << "\nphi[deg] = " << phi * RAD2DEG
-                    <<"\ntheta[deg] = " << theta * RAD2DEG << "\n\n";
+    cfg << sangles_p << "\nphi_p[deg] = " << phi_p * RAD2DEG
+                    <<"\ntheta_p[deg] = " << theta_p * RAD2DEG << "\n\n";
+    cfg << sangles_v << "\nphi_v[deg] = " << phi_v * RAD2DEG
+                    <<"\ntheta_v[deg] = " << theta_v * RAD2DEG << "\n\n";
 
     cfg << std::scientific << std::setprecision(16);
     cfg << spos << "\npos(x) = " << pos[0] 

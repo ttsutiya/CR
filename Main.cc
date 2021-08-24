@@ -11,12 +11,13 @@ int main(){
     double finalTime, h, h0, err;
     bool adapFlag, pPosFlag, pRadFlag, pFreqFlag, pMagFlag, pMiscFlag;
 
-    double q, m, phi, theta, initialB;
+    double q, m, phi_p, theta_p, phi_v, theta_v, initialB;
     int mode, stopFlag;
 
     std::vector<double> pos(3), v(3), B(3);
 
-    PhysInit(finalTime,h,err,q,m,phi,theta,pos,v,B,initialB,mode,adapFlag,stopFlag,pPosFlag,pRadFlag,pFreqFlag,pMagFlag,pMiscFlag);  //Get initial values from config file
+    PhysInit(finalTime,h,err,q,m,phi_p,theta_p,phi_v,theta_v,pos,v,B,initialB,
+            mode,adapFlag,stopFlag,pPosFlag,pRadFlag,pFreqFlag,pMagFlag,pMiscFlag);  //Get initial values from config file
 
 //#############################################################################
     // Saves the starting values for future use
@@ -196,7 +197,7 @@ int main(){
     if(pRadFlag)    printRad(timeStamp, radius);
     if(pFreqFlag)   printFreq(timeStamp, frequency);
     if(pMagFlag)    printMag(timeStamp, magfield);
-    if(pMiscFlag)   printMisc(phi, theta, pos0, pos, posOut, v0, v);
+    if(pMiscFlag)   printMisc(phi_p, theta_p, phi_v, theta_v, pos0, pos, posOut, v0, v);
     std::cout << "v initial mod = " << VecMod(v0) << std::endl;
     std::cout << "v final mod = " << VecMod(v) << std::endl;
     std::cout << "v diff = " << VecMod(v) - VecMod(v0) << std::endl;

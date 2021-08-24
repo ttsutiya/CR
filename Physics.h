@@ -7,10 +7,10 @@ const double unts = PC * AU;        //parsec to meters
 
 
 double PhysInit(double &finalTime, double &h, double &err, double &q, double &m,
-        double &phi, double &theta, std::vector<double> &pos, std::vector<double> &v,
-        std::vector<double> &B, double &initialB, int &mode,
-        bool &adapFlag, int &stopFlag, bool &pPosFlag, bool &pRadFlag, bool &pFreqFlag,
-        bool &pMagFlag, bool &pMiscFlag);
+        double &phi_p, double &theta_p, double &phi_v, double &theta_v, 
+        std::vector<double> &pos, std::vector<double> &v, std::vector<double> &B,
+        double &initialB, int &mode, bool &adapFlag, int &stopFlag, 
+        bool &pPosFlag, bool &pRadFlag, bool &pFreqFlag, bool &pMagFlag, bool &pMiscFlag);
 double Lorentz(std::vector<double> &F, const double &q, const std::vector<double> &v,
         const std::vector<double> &B);
 double Gyroradius(const double &q, const double &m, const std::vector<double> &v,
@@ -26,10 +26,10 @@ double BSSModel(double ro, double theta);
 double AModel(double z);
 
 double PhysInit(double &finalTime, double &h, double &err, double &q, double &m,
-        double &phi, double &theta, std::vector<double> &pos, std::vector<double> &v,
-        std::vector<double> &B, double &initialB, int &mode,
-        bool &adapFlag, int &stopFlag, bool &pPosFlag, bool &pRadFlag, bool &pFreqFlag,
-        bool &pMagFlag, bool &pMiscFlag){
+        double &phi_p, double &theta_p, double &phi_v, double &theta_v, 
+        std::vector<double> &pos, std::vector<double> &v, std::vector<double> &B,
+        double &initialB, int &mode, bool &adapFlag, int &stopFlag, 
+        bool &pPosFlag, bool &pRadFlag, bool &pFreqFlag, bool &pMagFlag, bool &pMiscFlag){
         
     std::ifstream config("config");
 
@@ -72,61 +72,69 @@ double PhysInit(double &finalTime, double &h, double &err, double &q, double &m,
                     ss >> m;
                     break;
                 case 5:
-                    ss >> phi; 
+                    ss >> phi_p; 
+                    break;
                 case 6:
-                    ss >> theta; 
+                    ss >> theta_p; 
+                    break;
                 case 7:
-                    ss >> pos[0];
+                    ss >> phi_v; 
                     break;
                 case 8:
-                    ss >> pos[1];
+                    ss >> theta_v; 
                     break;
                 case 9:
-                    ss >> pos[2];
+                    ss >> pos[0];
                     break;
                 case 10:
-                    ss >> v[0];
+                    ss >> pos[1];
                     break;
                 case 11:
-                    ss >> v[1];
+                    ss >> pos[2];
                     break;
                 case 12:
-                    ss >> v[2];
+                    ss >> v[0];
                     break;
                 case 13:
-                    ss >> B[0];
+                    ss >> v[1];
                     break;
                 case 14:
-                    ss >> B[1];
+                    ss >> v[2];
                     break;
                 case 15:
-                    ss >> B[2];
+                    ss >> B[0];
                     break;
                 case 16:
-                    ss >> initialB;
+                    ss >> B[1];
                     break;
                 case 17:
-                    ss >> mode;
+                    ss >> B[2];
                     break;
                 case 18:
-                    ss >> adapFlag;
+                    ss >> initialB;
                     break;
                 case 19:
-                    ss >> stopFlag;
+                    ss >> mode;
                     break;
                 case 20:
-                    ss >> pPosFlag;
+                    ss >> adapFlag;
                     break;
                 case 21:
-                    ss >> pRadFlag;
+                    ss >> stopFlag;
                     break;
                 case 22:
-                    ss >> pFreqFlag;
+                    ss >> pPosFlag;
                     break;
                 case 23:
-                    ss >> pMagFlag;
+                    ss >> pRadFlag;
                     break;
                 case 24:
+                    ss >> pFreqFlag;
+                    break;
+                case 25:
+                    ss >> pMagFlag;
+                    break;
+                case 26:
                     ss >> pMiscFlag;
                     break;
             }
