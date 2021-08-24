@@ -2,19 +2,19 @@
 
 #rm data/*.dat 2> /dev/null
 
-if ! g++ genconfig.cc -o genconfig
-then
-    echo "Error compiling genconfig.cc"
-    exit;
-fi
+#if ! g++ genconfig.cc -o genconfig
+#then
+#    echo "Error compiling genconfig.cc"
+#    exit;
+#fi
+#
+#if ! g++ Main.cc -o CR
+#then
+#    echo "Compiling error exiting script"
+#    exit;
+#fi
 
-if ! g++ Main.cc -o CR
-then
-    echo "Compiling error exiting script"
-    exit;
-fi
-
-NUMBERSIM=2
+NUMBERSIM=1000
 for ((N=1; N<=$NUMBERSIM; N++))
 do
     ./genconfig

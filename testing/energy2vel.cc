@@ -53,6 +53,7 @@ int main(){
     //cout << test1 << endl;
 
     E = m0*pow(c,2) / sqrt(1-pow(v/c,2));
+    E *= 6.242e18;
     cout << "Energy = " << E << endl;
 
 

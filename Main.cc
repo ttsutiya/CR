@@ -195,7 +195,8 @@ int main(){
     if(pRadFlag)    printRad(timeStamp, radius);
     if(pFreqFlag)   printFreq(timeStamp, frequency);
     if(pMagFlag)    printMag(timeStamp, magfield);
-    if(pMiscFlag)   printMisc(phi, theta, pos0, pos, posOut);
+    if(pMiscFlag)   printMisc(phi, theta, pos0, pos, posOut, v0, v);
+    cout << "v final mod = " << VecMod(v) << endl;
 
     return 0;
 }

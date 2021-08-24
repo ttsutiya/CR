@@ -79,7 +79,9 @@ void printMag(const std::vector<double> &timeStamp,
     mag.close();
 }
 
-void printMisc(double &phi, double &theta, const std::vector<double> &pos0, const std::vector<double> &pos, const std::vector<std::vector<double>> &posOut){
+void printMisc(double &phi, double &theta, const std::vector<double> &pos0, 
+               const std::vector<double> &pos, const std::vector<std::vector<double>> &posOut,
+               const std::vector<double> v0, const std::vector<double>v){
     std::cout << "Print Misc" << std::endl;
     std::ofstream misc("misc.dat");
 
@@ -97,6 +99,9 @@ void printMisc(double &phi, double &theta, const std::vector<double> &pos0, cons
 
     misc << path << " " 
          << phi << " " << theta << " "
-         << pos0[0] << " " << pos0[1] << " " << pos0[3] << " "
-         << posOut[posOut.size()-1][0] << " " << posOut[posOut.size()-1][1] << " " << posOut[posOut.size()-1][3] << " " << std::endl;
+         << pos0[0] << " " << pos0[1] << " " << pos0[2] << " "
+         << posOut[posOut.size()-1][0] << " " << posOut[posOut.size()-1][1] << " " << posOut[posOut.size()-1][2] << " " 
+         << v0[0] << " " << v0[1] << " " << v0[2] << " "
+         << v[0] << " " << v[1] << " " << v[2] << " " 
+         << std::endl;
 }
