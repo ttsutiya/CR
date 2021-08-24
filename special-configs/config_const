@@ -1,0 +1,62 @@
+#Duration
+# 0 -> no time limit
+finalTime = 5.000e+01
+
+#Step size
+t = 1.000e-03
+
+#Error
+err = 1.000e-09
+
+#Particle specifications
+charge = 2
+mass = 2
+
+#Origin Angles
+phi[deg] = 321.2161211
+theta[deg] = 70.8357274
+
+#Initial position
+pos(x) = 1
+pos(y) = 1
+pos(z) = 1
+
+#Initial velocity
+vel(x) = 2
+vel(y) = 0
+vel(z) = 1
+
+#Constant magnetic field (mode 0/1/2)
+magfield(x) = 0.0000000000000000e+00
+magfield(y) = 0.0000000000000000e+00
+magfield(z) = 1.0000000000000000e+00
+
+#B_0 used in the dipole field (mode 3)
+intialB = 7.0000000000000000e+08
+
+#   0 - constant
+#   1 - 1/r
+#   2 - 1/r^2
+#   3 - dipole
+#   4 - ASS Model
+#   5 - BSS Model
+mode = 0
+
+#Adaptative RK4
+adapFlag = 1
+
+#Stop simulation
+#  0 - Disabled
+#  1 - Magnitude
+#  2 - Z=0
+simStop = 0
+
+#Print to file
+#  0 - Disabled
+#  1 - Enabled
+printPos  = 1
+printRad  = 0
+printFreq = 0
+printMag  = 0
+printMisc = 1
+

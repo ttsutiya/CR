@@ -122,6 +122,7 @@ int main(){
         }
 
         Rk(pos,v,B,B0,initialB,mode,q,m,h);
+        ScaleVector(v0,v);
 
         std::vector<double> temp(3);    //temporary vec to be used to push
                                         //into vector of vectors
@@ -180,7 +181,7 @@ int main(){
 
         time += h;
         timeStamp.push_back(time);
-        //std::cout << "time = " << time << endl;
+        std::cout << "time = " << time << endl;
 
         if(breakFlag){
             break;
@@ -196,7 +197,10 @@ int main(){
     if(pFreqFlag)   printFreq(timeStamp, frequency);
     if(pMagFlag)    printMag(timeStamp, magfield);
     if(pMiscFlag)   printMisc(phi, theta, pos0, pos, posOut, v0, v);
-    cout << "v final mod = " << VecMod(v) << endl;
+    std::cout << "v initial mod = " << VecMod(v0) << std::endl;
+    std::cout << "v final mod = " << VecMod(v) << std::endl;
+    std::cout << "v diff = " << VecMod(v) - VecMod(v0) << std::endl;
+    std::cout << "v diff % = " << 100*(VecMod(v) - VecMod(v0))/VecMod(v0) << std::endl;
 
     return 0;
 }

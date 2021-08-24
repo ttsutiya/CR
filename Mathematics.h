@@ -12,6 +12,7 @@ double VecAngle(const std::vector<double> &pos0, const std::vector<double> &pos)
 double Decomposition(const std::vector<double> &v, const std::vector<double> &B,
         std::vector<double> &v_par, std::vector<double> &v_per);
 double AbsDistance(const std::vector<double> &pos);
+void ScaleVector(const std::vector<double> &v0, std::vector<double> &v);
 
 double VecMod(const std::vector<double> &vec){
         double mod;
@@ -76,4 +77,14 @@ double AbsDistance(const std::vector<double> &pos){
     absDist = VecMod(pos);
 
     return absDist;
+}
+
+void ScaleVector(const std::vector<double> &v0, std::vector<double> &v){
+//  Scale v to v0
+
+    double scale;
+
+    scale = VecMod(v0) / VecMod(v);
+    for(double &i : v)  i *= scale;
+
 }
