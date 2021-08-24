@@ -182,7 +182,7 @@ int main(){
 
         time += h;
         timeStamp.push_back(time);
-        std::cout << "time = " << time << endl;
+        //std::cout << "time = " << time << endl;
 
         if(breakFlag){
             break;

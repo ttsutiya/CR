@@ -1,6 +1,6 @@
 *.dat
 CR
 genconfig
-data/*
-journal
 config
+data/cfg/*
+data/misc/*
