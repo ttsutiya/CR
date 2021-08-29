@@ -40,7 +40,7 @@ int main(){
         double v_xy = sqrt( pow(vx,2) + pow(vy,2) );
         double v = sqrt( pow(vx,2) + pow(vy,2) + pow(vz,2) );
     
-        arrive_phi = acos( vx / v_xy ) * RAD2DEG;
+        arrive_phi = atan2( vy, vx ) * RAD2DEG;
         arrive_theta = acos( (pow(vx,2) + pow(vy,2)) / (v * v_xy) ) * RAD2DEG;
     
     //################################################################################        
@@ -62,10 +62,19 @@ int main(){
 
         double mod = mod_v0 * mod_v;
 
-        variation = acos( dot / mod ) * RAD2DEG;
+//for some reason if (mod == dot) the division will give something near but greater
+//than 1, making acos(>1) give me Nan
+//this is a workaround
+        double div = dot/mod;
+
+        if(div > 1){
+            div = 1;
+        }
+
+        variation = acos( div ) * RAD2DEG;
 
     //################################################################################
-    
+   
         std::cout << arrive_phi << " " << arrive_theta << " " << relative_path << " " << variation << std::endl;
     }
 }

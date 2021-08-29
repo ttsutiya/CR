@@ -3,6 +3,7 @@
 void printPos(const std::vector<double> &timeStamp, const std::vector<double> &maxValues,
         const std::vector<double> &minValues, 
             const std::vector<std::vector<double> > &posOut){
+
     std::cout << "Print Pos" << std::endl;
     std::ofstream pos("pos.dat");                   //N
                                                     //Max x Max y Max z Min x Min y Min z
