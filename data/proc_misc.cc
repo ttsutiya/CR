@@ -54,7 +54,7 @@ int main(){
     //################################################################################
     // Desvio de v em relação a v0
     
-        double variation;
+        double deviation;
         double dot = v0x * vx + v0y * vy + v0z * vz;
 
         double mod_v0 = sqrt( pow(v0x,2) + pow(v0y,2) + pow(v0z,2) );
@@ -71,10 +71,10 @@ int main(){
             div = 1;
         }
 
-        variation = acos( div ) * RAD2DEG;
+        deviation = acos( div ) * RAD2DEG;
 
     //################################################################################
    
-        std::cout << arrive_phi << " " << arrive_theta << " " << relative_path << " " << variation << std::endl;
+        std::cout << arrive_phi << " " << arrive_theta << " " << relative_path << " " << deviation << std::endl;
     }
 }

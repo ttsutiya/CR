@@ -108,4 +108,6 @@ void printMisc(const double &phi_p, const double &theta_p,
          << v0[0] << " " << v0[1] << " " << v0[2] << " "
          << v[0] << " " << v[1] << " " << v[2] << " " 
          << std::endl;
+
+    misc.close();
 }
