@@ -10,7 +10,7 @@ void hist(){
 
     ifstream file("data");
 
-    while(N <= 10000){
+    while(N <= 1000){
         double arrive_phi, arrive_theta, relative_path, deviation;
         file >> arrive_phi >> arrive_theta >> relative_path >> deviation;
 
@@ -20,7 +20,7 @@ void hist(){
         hist1->Fill(arrive_phi);
         hist2->Fill(arrive_theta);
         hist3->Fill(relative_path);
-        hist4->Fill(variation);
+        hist4->Fill(deviation);
 
         N++;
     }

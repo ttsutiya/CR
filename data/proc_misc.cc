@@ -69,6 +69,8 @@ int main(){
 
         if(div > 1){
             div = 1;
+        }else if(div < -1){
+            div = -1;
         }
 
         deviation = acos( div ) * RAD2DEG;
