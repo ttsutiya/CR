@@ -225,8 +225,8 @@ double MagneticField(const std::vector<double> &pos, std::vector<double> &B,
             Bsp = ASSModel(ro,theta);
             Zscale = AModel(pos[2]);
 
-            Bro = Bsp * sin(ro) * Zscale;
-            Btheta = Bsp * cos(ro) * Zscale;
+            Bro = Bsp * sin(-10 * DEG2RAD) * Zscale;
+            Btheta = Bsp * cos(-10 * DEG2RAD) * Zscale;
 
             B[0] = Bro * cos(theta) - Btheta * sin(theta);
             B[1] = -( Bro * sin(theta) + Btheta * cos(theta) );
@@ -293,7 +293,8 @@ double RelativisticMass(double m, std::vector<double> v){
 double ASSModel(double ro, double theta){
     double xi = 10.55e3 * unts;
     double rnaught = 8.5e3 * unts;
-    double Bnaught = (3 * rnaught / ro) * pow( tanh(ro / (2 * unts)),3 ) * 1e-10;
+    double ro1 = 2e3 * unts;
+    double Bnaught = (3 * rnaught / ro) * pow( tanh(ro / ro1),3 ) * 1e-10;
 
     double Bsp = Bnaught * pow( cos( theta - (-5.67) * log(ro/xi) ),2 );
 
@@ -303,7 +304,8 @@ double ASSModel(double ro, double theta){
 double BSSModel(double ro, double theta){
     double xi = 10.55e3 * unts;
     double rnaught = 8.5e3 * unts;
-    double Bnaught = (3 * rnaught / ro) * pow( tanh(ro / (2 * unts)),3 ) * 1e-10;
+    double ro1 = 2e3 * unts;
+    double Bnaught = (3 * rnaught / ro) * pow( tanh(ro / ro1),3 ) * 1e-10;
 
     double Bsp = Bnaught * cos( theta - (-5.67) * log(ro/xi) );
 
