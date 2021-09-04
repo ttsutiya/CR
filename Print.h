@@ -80,7 +80,7 @@ void printMag(const std::vector<double> &timeStamp,
     mag.close();
 }
 
-void printMisc(const double &phi_p, const double &theta_p,
+void printMisc(const double &time, const double &phi_p, const double &theta_p,
                const double &phi_v, const double &theta_v,
                const std::vector<double> &pos0, const std::vector<double> &pos,
                const std::vector<std::vector<double>> &posOut,
@@ -100,7 +100,8 @@ void printMisc(const double &phi_p, const double &theta_p,
         path += VecMod(vec_diff);
     }
 
-    misc << path << " " 
+    misc << time << " " 
+         << path << " " 
          << phi_p << " " << theta_p << " "
          << phi_v << " " << theta_v << " "
          << pos0[0] << " " << pos0[1] << " " << pos0[2] << " "

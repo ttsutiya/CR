@@ -10,6 +10,7 @@ int main(){
     }
 
     int id;
+    double time;
     double path;
     double phi_p, theta_p;
     double phi_v, theta_v;
@@ -25,13 +26,14 @@ int main(){
         if(line.empty()) break;
         std::stringstream ss(line);
 
-        ss >> id >> path 
-             >> phi_p >> theta_p
-             >> phi_v >> theta_v
-             >> x0 >> y0 >> z0
-             >> x >> y >> z
-             >> v0x >> v0y >> v0z
-             >>vx >> vy >> vz;
+        ss >> time
+           >> id >> path 
+           >> phi_p >> theta_p
+           >> phi_v >> theta_v
+           >> x0 >> y0 >> z0
+           >> x >> y >> z
+           >> v0x >> v0y >> v0z
+           >>vx >> vy >> vz;
     
     //################################################################################
     //  theta e phi de chegada com relação ao z=0
@@ -77,6 +79,6 @@ int main(){
 
     //################################################################################
    
-        std::cout << arrive_phi << " " << arrive_theta << " " << relative_path << " " << deviation << std::endl;
+        std::cout << time << " " << arrive_phi << " " << arrive_theta << " " << relative_path << " " << deviation << std::endl;
     }
 }

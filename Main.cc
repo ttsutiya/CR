@@ -197,7 +197,7 @@ int main(){
     if(pRadFlag)    printRad(timeStamp, radius);
     if(pFreqFlag)   printFreq(timeStamp, frequency);
     if(pMagFlag)    printMag(timeStamp, magfield);
-    if(pMiscFlag)   printMisc(phi_p, theta_p, phi_v, theta_v, pos0, pos, posOut, v0, v);
+    if(pMiscFlag)   printMisc(timeStamp[timeStamp.size()-1],phi_p, theta_p, phi_v, theta_v, pos0, pos, posOut, v0, v);
     std::cout << "v initial mod = " << VecMod(v0) << std::endl;
     std::cout << "v final mod = " << VecMod(v) << std::endl;
     std::cout << "v diff = " << VecMod(v) - VecMod(v0) << std::endl;
